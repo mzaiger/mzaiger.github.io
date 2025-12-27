@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Current Side Projects</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+  <img src="logo.png" alt="logo" />
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="resume.html">Resume</a>
+    <a href="projects.html">Current Side Projects</a>
+    <a href="marcitech.html">Old Marcitech Site</a>
+  </nav>
+</header>
+
+<div class="container">
+  <h1>Current Side Projects</h1>
+
+  <div class="card">
+    <h2>Bar Fight!</h2>
+    <img src="BarFight.png" alt="Bar Fight Gameplay" class="project-img-display">
+    <p>
+      Unity game created with AI graphics and characters. Two friends fight each other in an empty bar. 3rd person shooter style.
+    </p>
+    <a href="https://zegster.itch.io/bar-fight" target="_blank">View on Itch.io</a>
+<p>[Password Protected, Contact for Password]</p>
+  </div>
+
+  <div class="card">
+    <h2>Dungeon and Dragons's Baseball </h2>
+    <img src="DnDBaseball.png" alt="DnD Baseball Gameplay" class="project-img-display">
+    <p>
+      Unity game created with AI graphics and characters. A baseball game where you go around the bases fighting characters from the 2025 MLB Playoff Race. Action RPG style game.
+    </p>
+    <a href="https://zegster.itch.io/dd-baseball" target="_blank">View on Itch.io</a>
+    <p>[Password Protected, Contact for Password]</p>
+  </div>
+
+  <div class="card">
+    <h2>3D Objects for Games & Other Projects</h2>
+    <img src="SketchFab.png" alt="3D Model Preview" class="project-img-display">
+    <p>
+      Collection of 3D objects created for games and other purposes.
+    </p>
+    <a href="https://sketchfab.com/mzaiger" target="_blank">View on Sketchfab</a>
+  </div>
+</div>
+<footer>© Marc Zaiger</footer>
+<script>
+  const observerOptions = {
+    threshold: 0.1 // Triggers when 10% of the card is visible
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
+    });
+  }, observerOptions);
+
+  // Target both standard cards and the marcitech card
+  const cards = document.querySelectorAll('.card, .marcitech-card');
+  cards.forEach(card => observer.observe(card));
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Marc Zaiger – Developer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+  <img src="logo.png" alt="logo" />
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="resume.html">Resume</a>
+    <a href="projects.html">Current Side Projects</a>
+    <a href="marcitech.html">Old Marcitech Site</a>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="profile">
+      <h1>Marc Zaiger</h1>
+  <div class="card">
+    <img src="Me2.png" alt="Marc Zaiger" />
+    <div>
+      <p>
+        A Database Administrator moon lighting as a game developer. I have decades of developer and database administrator experience in a professional setting.
+      </p>
+      <p>
+        I enjoy riding bike in my free time. I enjoy playing poker in my free time. I am somewhat of a Foodie. I enjoy making food and going out to new restaurants.
+      </p>
+    </div>
+  </div>
+  </div>
+</div>
+
+<footer>© Marc Zaiger</footer>
+<script>
+  const observerOptions = {
+    threshold: 0.1 // Triggers when 10% of the card is visible
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+      }
+    });
+  }, observerOptions);
+
+  // Target both standard cards and the marcitech card
+  const cards = document.querySelectorAll('.card, .marcitech-card');
+  cards.forEach(card => observer.observe(card));
+</script>
+</body>
+</html>
