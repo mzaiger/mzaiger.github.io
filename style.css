@@ -80,7 +80,7 @@ animation: headerSlideDown 0.8s ease-out forwards;
 }
 
 header img[alt="logo"] {
-  width: 590px;  
+  width: 490px;  
   height: auto;   
 }
 
@@ -103,7 +103,7 @@ nav a:nth-child(4) { animation-delay: 0.9s; }
 nav a {
   margin: 0 14px;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 14px;
   letter-spacing: 0.5px;
 }
 
@@ -134,7 +134,7 @@ h2 { font-size: 30px; }
 h3 { font-size: 22px; }
 
 .card {
-  max-width: 700px;
+  max-width: 600px;
   background: #1D1E1E;
   padding: 28px;
   border-radius: 14px;
