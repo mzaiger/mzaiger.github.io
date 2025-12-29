@@ -1,16 +1,11 @@
 body {
-  /* 1. Set the size and center the container on the screen */
   max-width: 1400px;
   width: 100%;       
   margin: 0 auto;    
-
-  /* 2. Center all content inside the body */
   display: flex;
   flex-direction: column; 
   align-items: center;    
   text-align: center;     
-
-  /* Styling */
   font-family: 'Segoe UI', 'Inter', Arial, sans-serif;
   background: #2D2F2F; 
   color: #e5e7eb;
@@ -32,8 +27,6 @@ a:hover {
   text-decoration: underline;
 }
 
-
-
 header {
   background: #1D1E1E;
   display: flex;
@@ -41,41 +34,40 @@ header {
   box-shadow: 0 4px 20px rgba(0,0,0,0.4);
   flex-direction: column;
   justify-content: center;
-flex-shrink: 0;
-animation: headerSlideDown 0.8s ease-out forwards;
+  flex-shrink: 0;
+  animation: headerSlideDown 0.8s ease-out forwards;
 }
 
-/* 1. Define the 'slideDown' animation */
 @keyframes headerSlideDown {
   0% {
     opacity: 0;
-    transform: translateY(-100%); /* Start completely off-screen (top) */
+    transform: translateY(-100%);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);    /* End in its natural position */
+    transform: translateY(0);
   }
 }
 
 @keyframes slideInRight {
   0% {
     opacity: 0;
-    transform: translateX(100%); /* Start off-screen to the right */
+    transform: translateX(100%);
   }
   100% {
     opacity: 1;
-    transform: translateX(0);    /* End in its natural position */
+    transform: translateX(0);
   }
 }
 
 @keyframes slideInLeft {
   0% {
     opacity: 0;
-    transform: translateX(-100%); /* Start off-screen to the right */
+    transform: translateX(-100%);
   }
   100% {
     opacity: 1;
-    transform: translateX(0);    /* End in its natural position */
+    transform: translateX(0);
   }
 }
 
@@ -85,13 +77,15 @@ header img[alt="logo"] {
   padding: 10px;  
 }
 
-/* Make links invisible initially */
 nav a {
   opacity: 0;
   animation: fadeIn 0.5s ease-out forwards;
+  margin: 0 14px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.5px;
 }
 
-/* Add different delays for a 'staggered' effect */
 nav a:nth-child(1) { animation-delay: 0.6s; }
 nav a:nth-child(2) { animation-delay: 0.7s; }
 nav a:nth-child(3) { animation-delay: 0.8s; }
@@ -101,15 +95,8 @@ nav a:nth-child(4) { animation-delay: 0.9s; }
   to { opacity: 1; }
 }
 
-nav a {
-  margin: 0 14px;
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-}
-
 nav a:hover {
-  display: inline-block; /* Required for translateY to work */
+  display: inline-block;
   transform: translateY(-2px);
 }
 
@@ -123,7 +110,8 @@ nav a:hover {
 h1 {
   color: #f8fafc;
   letter-spacing: 0.8px;
-animation: slideInRight 0.8s ease-out forwards;
+  animation: slideInRight 0.8s ease-out forwards;
+  font-size: 42px;
 }
 
 h2, h3 {
@@ -131,14 +119,14 @@ h2, h3 {
   letter-spacing: 0.8px;
 }
 
-h1 { font-size: 42px; }
 h2 { font-size: 30px; }
 h3 { font-size: 22px; }
 
 .card {
   width: 90%;
   max-width: 600px;
-  min-height: 400px;
+  /* CRITICAL FIX: Ensure the card has height before the image loads */
+  min-height: 550px; 
   margin-left: auto;
   margin-right: auto;
   background: #1D1E1E;
@@ -147,7 +135,8 @@ h3 { font-size: 22px; }
   margin-bottom: 36px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.45);
   opacity: 0;
-  transform: translateX(-400px);
+  /* Changed from -400px to avoid extreme horizontal layout shifts on mobile */
+  transform: translateX(-100px); 
   transition: all 0.8s ease-out;
 }
 
@@ -156,35 +145,33 @@ h3 { font-size: 22px; }
   padding: 10px;
   border-radius: 14px;
   margin-bottom: 36px;
-  width: 95%
+  width: 95%; /* Fixed missing semicolon */
   box-shadow: 0 10px 30px rgba(0,0,0,0.45);
   max-width: 1300px;
   height: 500px;
   margin-left: auto;
   margin-right: auto;
   opacity: 0;
-  transform: translateX(-400px);
+  transform: translateX(-100px);
   transition: all 0.8s ease-out;
 }
 
-.card.show {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* Visible state: Triggered by JavaScript */
-.marcitech-card.show {
+.card.show, .marcitech-card.show {
   opacity: 1;
   transform: translateX(0);
 }
 
 .project-img-display {
-  width: 600px;          
+  width: 100%; /* Changed to 100% for better responsiveness */
+  max-width: 600px;          
+  aspect-ratio: 16 / 9; 
+  background: #151616;  
   height: auto;          
   display: block;        
   margin: 0 auto 18px;   
   border-radius: 12px;   
-  max-width: 100%;       
+  /* This prevents the image area from being 0px tall while loading */
+  object-fit: cover;
 }
 
 iframe {
@@ -200,10 +187,10 @@ iframe {
     padding: 28px;
   }
 
-header img[alt="logo"] {
-  width: 550px;
-  height: auto;
-}
+  header img[alt="logo"] {
+    width: 550px;
+    height: auto;
+  }
 }
 
 @media (max-width: 480px) {
@@ -213,7 +200,7 @@ header img[alt="logo"] {
   }
   
   h1 {
-    font-size: 28px; /* Shrink large headers on mobile */
+    font-size: 28px;
   }
 }
 
