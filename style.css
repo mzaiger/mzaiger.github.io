@@ -114,7 +114,7 @@ nav a:hover {
 }
 
 .container {
-  width 100%;
+  width: 100%;
   max-width: 1400px;
   margin: auto;
   padding: 20px 15px;
@@ -138,6 +138,7 @@ h3 { font-size: 22px; }
 .card {
   width: 90%;
   max-width: 600px;
+  min-height: 400px;
   margin-left: auto;
   margin-right: auto;
   background: #1D1E1E;
