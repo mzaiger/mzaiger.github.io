@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=0.5">
   <title>Resume – Marc Zaiger</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -19,7 +19,7 @@
 
 <div class="container">
   <h1>Resume</h1>
-  <div class="resume-card">
+  <div class="card">
     <p>
       <a href="MarcResume.pdf" target="_blank">Download Resume (PDF)</a>
     </p>
@@ -47,7 +47,7 @@
   }, observerOptions);
 
   // Target both standard cards and the marcitech card
-  const cards = document.querySelectorAll('.card, .marcitech-card, .resume-card');
+  const cards = document.querySelectorAll('.card, .marcitech-card');
   cards.forEach(card => observer.observe(card));
 </script>
 </body>
