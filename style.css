@@ -135,7 +135,23 @@ h3 { font-size: 22px; }
   margin-bottom: 36px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.45);
   opacity: 0;
-  transform: translateX(-100vw); 
+  transform: translateX(-1000px); 
+  transition: all 0.8s ease-out;
+}
+
+.resume-card {
+  width: 90%;
+  max-width: 600px;
+  min-height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #1D1E1E;
+  padding: 28px;
+  border-radius: 14px;
+  margin-bottom: 36px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  opacity: 0;
+  transform: translateX(-1000px); 
   transition: all 0.8s ease-out;
 }
 
@@ -151,11 +167,11 @@ h3 { font-size: 22px; }
   margin-left: auto;
   margin-right: auto;
   opacity: 0;
-  transform: translateX(-100vw);
+  transform: translateX(-1000px);
   transition: all 0.8s ease-out;
 }
 
-.card.show, .marcitech-card.show {
+.card.show, .marcitech-card.show, .resume-card.show {
   opacity: 1;
   transform: translateX(0);
 }
