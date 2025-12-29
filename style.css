@@ -135,7 +135,7 @@ h3 { font-size: 22px; }
   margin-bottom: 36px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.45);
   opacity: 0;
-  transform: translateX(-400px); 
+  transform: translateX(-100%); 
   transition: all 0.8s ease-out;
 }
 
@@ -151,7 +151,7 @@ h3 { font-size: 22px; }
   margin-left: auto;
   margin-right: auto;
   opacity: 0;
-  transform: translateX(-400px);
+  transform: translateX(-100%);
   transition: all 0.8s ease-out;
 }
 
