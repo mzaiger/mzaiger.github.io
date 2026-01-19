@@ -318,9 +318,7 @@ header img[alt="logo"] {
   }
 
   .logo-container {
-    width: 95%;      /* Occupy most of the screen width */
-    height: 120px;   /* Force a taller height so the logo isn't tiny */
-    margin-top: 40px; /* Add space so it doesn't hit the slider */
+    width: 100%;      /* Occupy most of the screen width */
   }
 
   .header-main {
