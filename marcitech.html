@@ -8,13 +8,24 @@
 </head>
 <body>
 <header>
-  <img src="logo.png" alt="logo" />
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="resume.html">Resume</a>
-    <a href="projects.html">Current Side Projects</a>
-    <a href="marcitech.html">Old Marcitech Site</a>
-  </nav>
+<div class="header-main">
+    <div class="logo-container"></div>
+    
+    <div class="theme-switch-wrapper">
+      <span>Dark</span>
+      <label class="theme-switch" for="checkbox">
+        <input type="checkbox" id="checkbox" />
+        <div class="slider"></div>
+      </label>
+      <span>Light</span>
+    </div>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="resume.html">Resume</a>
+  <a href="projects.html">Current Side Projects</a>
+  <a href="marcitech.html">Old Marcitech Site</a>
+</nav>
+  </div>
 </header>
 
 <div class="container">
@@ -30,6 +41,29 @@
 
 <footer>© Marc Zaiger</footer>
 <script>
+const toggleSwitch = document.querySelector('#checkbox');
+  const currentTheme = localStorage.getItem('theme');
+
+  // Load saved preference
+  if (currentTheme) {
+    document.body.classList.add(currentTheme + '-mode');
+    if (currentTheme === 'light') {
+      toggleSwitch.checked = true;
+    }
+  }
+
+  function switchTheme(e) {
+    if (e.target.checked) {
+      document.body.classList.add('light-mode');
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.body.classList.remove('light-mode');
+      localStorage.setItem('theme', 'dark');
+    }    
+  }
+
+  toggleSwitch.addEventListener('change', switchTheme, false);
+
   const observerOptions = {
     threshold: 0.1 // Triggers when 10% of the card is visible
   };
