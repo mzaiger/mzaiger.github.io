@@ -310,19 +310,11 @@ header img[alt="logo"] {
 @media (max-width: 480px) {
   nav a {
     margin: 0 5px;
-    font-size: 12px;
+    font-size: 10px;
   }
   
   h1 {
     font-size: 28px; /* Shrink large headers on mobile */
-  }
-
-  .logo-container {
-    width: 480px;      /* Occupy most of the screen width */
-  }
-
-  .header-main {
-    width: 100%;     /* Ensure the wrapper isn't restricting the logo */
   }
 }
 
