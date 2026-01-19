@@ -316,6 +316,16 @@ header img[alt="logo"] {
   h1 {
     font-size: 28px; /* Shrink large headers on mobile */
   }
+
+  .logo-container {
+    width: 95%;      /* Occupy most of the screen width */
+    height: 120px;   /* Force a taller height so the logo isn't tiny */
+    margin-top: 40px; /* Add space so it doesn't hit the slider */
+  }
+
+  .header-main {
+    width: 100%;     /* Ensure the wrapper isn't restricting the logo */
+  }
 }
 
 .profile {
