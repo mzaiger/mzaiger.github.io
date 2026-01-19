@@ -318,7 +318,7 @@ header img[alt="logo"] {
   }
 
   .logo-container {
-    width: 100%;      /* Occupy most of the screen width */
+    width: 480px;      /* Occupy most of the screen width */
   }
 
   .header-main {
