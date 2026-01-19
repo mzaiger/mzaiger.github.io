@@ -310,7 +310,7 @@ header img[alt="logo"] {
 @media (max-width: 480px) {
   nav a {
     margin: 0 5px;
-    font-size: 10px;
+    font-size: 8px;
   }
   
   h1 {
