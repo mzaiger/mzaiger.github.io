@@ -61,3 +61,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const cards = document.querySelectorAll('.card, .resume-card, .marcitech-card');
   cards.forEach(card => observer.observe(card));
 });
+
+// Active Navigation State
+function setActiveNav() {
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  const navLinks = document.querySelectorAll('nav a');
+  
+  navLinks.forEach(link => {
+    const linkPage = link.getAttribute('href');
+    if (linkPage === currentPage || 
+        (currentPage === '' && linkPage === 'index.html') ||
+        (currentPage === '/' && linkPage === 'index.html')) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+}
+
+setActiveNav();
