@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, observerOptions);
 
-  const cards = document.querySelectorAll('.card, .resume-card, .marcitech-card');
+  const cards = document.querySelectorAll('.card, .resume-card, .marcitech-card, .project-card');
   cards.forEach(card => observer.observe(card));
 });
 

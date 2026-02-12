@@ -39,7 +39,7 @@ body {
   text-align: center;     
 
   /* Styling */
-  font-family: 'Segoe UI', 'Inter', Arial, sans-serif;
+      font-family: 'DM Sans', -apple-system, sans-serif;
   background: var(--bg-color); 
   color: var(--text-primary);
 }
@@ -154,8 +154,8 @@ background: color-mix(in srgb, var(--card-bg), transparent 25%);
 }
 
 .me-container {
-  width: 300px; /* Match your preferred logo width */
-  height: 300px; /* Adjust based on your logo aspect ratio */
+  width: 425px; /* Match your preferred logo width */
+  height: 400px; /* Adjust based on your logo aspect ratio */
   background-image: var(--me-url);
   background-size: contain;
   background-repeat: no-repeat;
@@ -236,7 +236,7 @@ nav a {
 
 a {
   position: relative;
-  margin: 0 8px;
+  margin: 20px 20px;
   padding: 10px 20px;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -320,12 +320,6 @@ nav a:hover {
   transform: translateY(-2px);
 }
 
-.container {
-  width 100%;
-  max-width: 1400px;
-  margin: auto;
-  padding: 20px 15px;
-}
 
 h1 {
   color: var(--text-heading);
@@ -344,8 +338,8 @@ h3 { font-size: 22px; }
 
 .card {
   width: 90%;
-  max-width: 600px;
-  min-height: 550px; 
+  max-width: 950px;
+  min-height: 450px;
   margin-left: auto;
   margin-right: auto;
   background: var(--card-bg);
@@ -357,10 +351,31 @@ h3 { font-size: 22px; }
   opacity: 0;
   transform: translateX(-400px);
   transition: all 0.8s ease-out;
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: left; 
+}
+
+
+.project-card {
+  width: 90%;
+  min-height: 450px;
+  margin-left: auto;
+  margin-right: auto;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  padding: 28px;
+  border-radius: 14px;
+  margin-bottom: 36px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  opacity: 0;
+  transform: translateX(-200px);
+  transition: all 1s ease-out;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center; 
 }
 
 .resume-card {
@@ -381,15 +396,15 @@ h3 { font-size: 22px; }
 }
 
 .marcitech-card {
+  width: 1300px;
+  height: 950px;
+  padding: 28px;
   background: var(--card-bg);
   color: var(--text-primary);
   padding: 10px;
   border-radius: 14px;
   margin-bottom: 36px;
-  width: 95%;
   box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-  max-width: 1300px;
-  height: 950px;
   margin-left: auto;
   margin-right: auto;
   opacity: 0;
@@ -398,6 +413,11 @@ h3 { font-size: 22px; }
 }
 
 .card.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.project-card.show {
   opacity: 1;
   transform: translateX(0);
 }
@@ -427,28 +447,21 @@ iframe {
   border: none;
 }
 
-@media (min-width: 768px) {
-  .marcitech-card {
-    width: 1400px;
-    height: 950px;
-    padding: 28px;
-  }
-
-header img[alt="logo"] {
-  width: 550px;
-  height: auto;
-}
+/* DEFAULT (Desktop & Tablet) */
+.column-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 15px;
+  width: 100%;
+  max-width: 900px; /* Keeps it from getting too wide on huge monitors */
+  margin: 0 auto;
 }
 
-@media (max-width: 480px) {
-  nav a {
-    margin: 0 5px;
-    font-size: 8px;
-  }
-  
-  h1 {
-    font-size: 28px; /* Shrink large headers on mobile */
-  }
+.column-container-project {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Two equal columns */
+  gap: 15px;
+  margin: 0 auto;
 }
 
 .profile {
@@ -535,4 +548,45 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+@media screen and (max-width: 1000px) {
+.column-container {
+    grid-template-columns: 1fr; 
+    /* This ensures children of the grid center themselves */
+    justify-items: center; 
+  }
+
+.column-container-project {
+    grid-template-columns: 1fr; 
+    /* This ensures children of the grid center themselves */
+    justify-items: center; 
+  }
+  
+  .me-container {
+    width: 300px; 
+    height: auto;
+    /* This is the magic for centering div-based images */
+    margin: 0 auto !important; 
+    aspect-ratio: 1 / 1; /* You may need to tweak this ratio for your headshot */
+  }
+
+  .card
+{
+  width: 90%;
+  max-width: 600px;
+  min-height: 550px; 
+}
+
+  .project-card
+{
+  width: 90%;
+  max-width: 600px;
+  min-height: 550px; 
+}
+
+.marcitech-card {
+ width: 90%;
+}
+
 }
