@@ -28,7 +28,6 @@ body.light-mode {
 
 body {
   /* 1. Set the size and center the container on the screen */
-  max-width: 1400px;
   width: 100%;       
   margin: 0 auto;    
 
@@ -143,7 +142,7 @@ background: color-mix(in srgb, var(--card-bg), transparent 25%);
 }
 
 .logo-container {
-  width: 560px; /* Match your preferred logo width */
+  min-width: 560px; /* Match your preferred logo width */
   height: 220px; /* Adjust based on your logo aspect ratio */
   background-image: var(--logo-url);
   background-size: contain;
@@ -221,7 +220,7 @@ nav {
 nav a {
   position: relative;
   margin: 0 8px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   font-weight: 700;
   font-size: 21px;
   letter-spacing: 0.5px;
@@ -360,12 +359,11 @@ h3 { font-size: 22px; }
 
 .project-card {
   width: 90%;
-  min-height: 450px;
+  height: 670px;
   margin-left: auto;
   margin-right: auto;
   background: var(--card-bg);
   color: var(--text-primary);
-  padding: 28px;
   border-radius: 14px;
   margin-bottom: 36px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.45);
@@ -376,6 +374,20 @@ h3 { font-size: 22px; }
   align-items: center;
   justify-content: center;
   text-align: center; 
+position: relative; /* Good practice for positioning */
+  overflow: hidden;   /* THIS IS THE KEY: Trims the video corners */
+  padding-top: 0;     /* Remove top padding so video touches the top */
+}
+
+.project-video {
+  width: 100%;
+  display: block;
+  margin-bottom: 20px; /* Space between video and text */
+}
+
+.project-desc {
+  padding: 28px;
+  text-align: left;
 }
 
 .resume-card {
@@ -396,7 +408,8 @@ h3 { font-size: 22px; }
 }
 
 .marcitech-card {
-  width: 1300px;
+ width: 90vw;
+  max-width: 1300px;
   height: 950px;
   padding: 28px;
   background: var(--card-bg);
@@ -442,7 +455,7 @@ h3 { font-size: 22px; }
 }
 
 iframe {
-  width: 100%;
+  width: 90%;
   height: 90%;
   border: none;
 }
@@ -550,7 +563,7 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
 .column-container {
     grid-template-columns: 1fr; 
     /* This ensures children of the grid center themselves */
