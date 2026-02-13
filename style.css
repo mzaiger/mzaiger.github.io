@@ -625,7 +625,7 @@ input:checked + .slider:before {
 
 .logo-container {
   min-width: 330px; /* Match your preferred logo width */
-  height: 135px; /* Adjust based on your logo aspect ratio */
+  height: 130px; /* Adjust based on your logo aspect ratio */
 }
 
 nav a {
@@ -693,7 +693,7 @@ p {
 }
 
 .theme-switch-wrapper {
-  margin-top: 5px;
+  margin-top: 7px;
 }
 
 }
