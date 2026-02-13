@@ -24,14 +24,20 @@ document.body.insertAdjacentHTML('afterbegin', headerHTML);
 
 const toggleSwitch = document.querySelector('#checkbox');
   const currentTheme = localStorage.getItem('theme');
+const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const savedTheme = localStorage.getItem('theme');
 
-  // Load saved preference
-  if (currentTheme) {
-    document.body.classList.add(currentTheme + '-mode');
-    if (currentTheme === 'light') {
-      toggleSwitch.checked = true;
-    }
+
+if (savedTheme) {
+  document.body.classList.toggle('light-mode', savedTheme === 'light');
+  toggleSwitch.checked = savedTheme === 'light';
+} else {
+  if (!systemPrefersDark) {
+    document.body.classList.add('light-mode');
+    toggleSwitch.checked = true;
   }
+}
+
 
   function switchTheme(e) {
     if (e.target.checked) {
@@ -43,7 +49,19 @@ const toggleSwitch = document.querySelector('#checkbox');
     }    
   }
 
-  toggleSwitch.addEventListener('change', switchTheme, false);
+  toggleSwitch.addEventListener('change', switchTheme);
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+  if (!localStorage.getItem('theme')) {
+    if (e.matches) {
+      document.body.classList.remove('light-mode');
+      toggleSwitch.checked = false;
+    } else {
+      document.body.classList.add('light-mode');
+      toggleSwitch.checked = true;
+    }
+  }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   const observerOptions = {
