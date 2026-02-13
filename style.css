@@ -157,7 +157,7 @@ background: color-mix(in srgb, var(--card-bg), transparent 25%);
 }
 
 .logo-container {
-  min-width: 440px; /* Match your preferred logo width */
+  width: 440px; /* Match your preferred logo width */
   height: 170px; /* Adjust based on your logo aspect ratio */
   background-image: var(--logo-url);
   background-size: contain;
@@ -584,7 +584,7 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-/*@media screen and (max-width: 1000px) { */
+@media screen and (max-width: 1000px) {
 .column-container {
     grid-template-columns: 1fr; 
     /* This ensures children of the grid center themselves */
@@ -601,9 +601,9 @@ input:checked + .slider:before {
 {
   max-width: 800px;
 }
-/*}*/
+}
 
-/*@media screen and (max-width: 700px) {  */
+@media screen and (max-width: 700px) {  
   .me-container {
     width: 200px; 
     height: auto;
@@ -640,7 +640,7 @@ input:checked + .slider:before {
 }
 
 .logo-container {
-  min-width: 330px; /* Match your preferred logo width */
+  width: 330px; /* Match your preferred logo width */
   height: 130px; /* Adjust based on your logo aspect ratio */
 }
 
@@ -712,4 +712,4 @@ p {
   margin-top: 7px;
 }
 
-/*}*/
+}
