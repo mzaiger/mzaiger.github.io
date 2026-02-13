@@ -573,3 +573,132 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+@media screen and (max-width: 1100px) {
+.column-container {
+    grid-template-columns: 1fr; 
+    /* This ensures children of the grid center themselves */
+    justify-items: center; 
+  }
+
+.column-container-project {
+    grid-template-columns: 1fr; 
+    /* This ensures children of the grid center themselves */
+    justify-items: center; 
+  }
+
+   .card
+{
+  max-width: 800px;
+}
+}
+
+@media screen and (max-width: 700px) {  
+  .me-container {
+    width: 200px; 
+    height: auto;
+    /* This is the magic for centering div-based images */
+    margin: 0 auto !important; 
+    aspect-ratio: 1 / 1; /* You may need to tweak this ratio for your headshot */
+  }
+
+  .card
+{
+  width: 90%;
+  max-width: 400px;
+  min-height: 250px; 
+  transform: translateX(-100px);
+}
+
+  .resume-card
+{
+  max-width: 400px;
+  min-height: 130px; 
+  transform: translateX(-100px);
+}
+  .project-card
+{
+  width: 90%;
+  max-width: 400px;
+  min-height: 400px; 
+  transform: translateX(-100px);
+}
+
+.marcitech-card {
+ width: 90vw;
+  transform: translateX(-100px);
+}
+
+.logo-container {
+  min-width: 330px; /* Match your preferred logo width */
+  height: 130px; /* Adjust based on your logo aspect ratio */
+}
+
+nav a {
+  font-size: 12px;
+}
+
+nav {
+  gap: 0px;
+  padding: 0px 0;
+  margin: 0 0px;
+}
+
+.theme-switch {
+    height: 14px;
+    width: 28px;
+  }
+
+  .slider:before {
+    height: 10px;
+    width: 10px;
+    bottom: 1px;
+    left: 2px;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(12px);
+  }
+h1 { font-size: 21px; }
+h2 { font-size: 19px; }
+h3 { font-size: 11px; }
+
+.topic-tag {
+  gap: 2px;
+  padding: 4px 7px;
+  border-radius: 15px;
+  font-size: 10px;
+}
+
+.topic-tag .icon {
+  font-size: 10px;
+}
+
+body {
+font-size: 12px;
+}
+
+a {
+  margin: 0 4px;
+  font-size: 12px;
+  padding: 2px 0;
+  border-radius: 30px;
+}
+
+.label-text {
+  font-size: 9px;
+}
+
+.password-note {
+  gap: 1px;
+  font-size: 9px;
+}
+
+p {
+	font-size: 12px;
+}
+
+.theme-switch-wrapper {
+  margin-top: 7px;
+}
+
+}
