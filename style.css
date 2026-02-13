@@ -1,3 +1,14 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  max-width: 100%;
+  /*overflow-x: hidden; */
+}
+
 /* 1. Define the Variables */
 :root {
   --bg-color: #2D2F2F;
@@ -27,8 +38,8 @@ body.light-mode {
 }
 
 body {
+
   /* 1. Set the size and center the container on the screen */
-  max-width: 1400px;
   width: 100%;       
   margin: 0 auto;    
 
@@ -39,9 +50,12 @@ body {
   text-align: center;     
 
   /* Styling */
-  font-family: 'Segoe UI', 'Inter', Arial, sans-serif;
+      font-family: 'DM Sans', -apple-system, sans-serif;
   background: var(--bg-color); 
   color: var(--text-primary);
+
+overflow-x: hidden; 
+  position: relative;
 }
 
 * {
@@ -143,8 +157,8 @@ background: color-mix(in srgb, var(--card-bg), transparent 25%);
 }
 
 .logo-container {
-  width: 560px; /* Match your preferred logo width */
-  height: 220px; /* Adjust based on your logo aspect ratio */
+  min-width: 440px; /* Match your preferred logo width */
+  height: 170px; /* Adjust based on your logo aspect ratio */
   background-image: var(--logo-url);
   background-size: contain;
   background-repeat: no-repeat;
@@ -154,8 +168,8 @@ background: color-mix(in srgb, var(--card-bg), transparent 25%);
 }
 
 .me-container {
-  width: 300px; /* Match your preferred logo width */
-  height: 300px; /* Adjust based on your logo aspect ratio */
+  width: 425px; /* Match your preferred logo width */
+  height: 400px; /* Adjust based on your logo aspect ratio */
   background-image: var(--me-url);
   background-size: contain;
   background-repeat: no-repeat;
@@ -221,9 +235,9 @@ nav {
 nav a {
   position: relative;
   margin: 0 8px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   font-weight: 700;
-  font-size: 21px;
+  font-size: 16px;
   letter-spacing: 0.5px;
   color: var(--link-color);
   text-decoration: none;
@@ -236,7 +250,7 @@ nav a {
 
 a {
   position: relative;
-  margin: 0 8px;
+  margin: 20px 20px;
   padding: 10px 20px;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -320,12 +334,6 @@ nav a:hover {
   transform: translateY(-2px);
 }
 
-.container {
-  width 100%;
-  max-width: 1400px;
-  margin: auto;
-  padding: 20px 15px;
-}
 
 h1 {
   color: var(--text-heading);
@@ -344,8 +352,8 @@ h3 { font-size: 22px; }
 
 .card {
   width: 90%;
-  max-width: 600px;
-  min-height: 550px; 
+  max-width: 950px;
+  min-height: 450px;
   margin-left: auto;
   margin-right: auto;
   background: var(--card-bg);
@@ -357,10 +365,45 @@ h3 { font-size: 22px; }
   opacity: 0;
   transform: translateX(-400px);
   transition: all 0.8s ease-out;
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: left; 
+}
+
+
+.project-card {
+  width: 90%;
+  max-width:800px;
+  min-height: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border-radius: 14px;
+  margin-bottom: 36px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  opacity: 0;
+  transform: translateX(-200px);
+  transition: all 1s ease-out;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center; 
+position: relative; /* Good practice for positioning */
+  overflow: hidden;   /* THIS IS THE KEY: Trims the video corners */
+  padding-top: 0;     /* Remove top padding so video touches the top */
+}
+
+.project-video {
+  width: 100%;
+  display: block;
+  margin-bottom: 20px; /* Space between video and text */
+}
+
+.project-desc {
+  padding: 28px;
+  text-align: left;
 }
 
 .resume-card {
@@ -381,15 +424,16 @@ h3 { font-size: 22px; }
 }
 
 .marcitech-card {
+ width: 90vw;
+  max-width: 1400px;
+  height: 950px;
+  padding: 28px;
   background: var(--card-bg);
   color: var(--text-primary);
   padding: 10px;
   border-radius: 14px;
   margin-bottom: 36px;
-  width: 95%;
   box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-  max-width: 1300px;
-  height: 950px;
   margin-left: auto;
   margin-right: auto;
   opacity: 0;
@@ -398,6 +442,11 @@ h3 { font-size: 22px; }
 }
 
 .card.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.project-card.show {
   opacity: 1;
   transform: translateX(0);
 }
@@ -422,33 +471,26 @@ h3 { font-size: 22px; }
 }
 
 iframe {
-  width: 100%;
+  width: 90%;
   height: 90%;
   border: none;
 }
 
-@media (min-width: 768px) {
-  .marcitech-card {
-    width: 1400px;
-    height: 950px;
-    padding: 28px;
-  }
-
-header img[alt="logo"] {
-  width: 550px;
-  height: auto;
-}
+/* DEFAULT (Desktop & Tablet) */
+.column-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 15px;
+  width: 100%;
+  max-width: 900px; /* Keeps it from getting too wide on huge monitors */
+  margin: 0 auto;
 }
 
-@media (max-width: 480px) {
-  nav a {
-    margin: 0 5px;
-    font-size: 8px;
-  }
-  
-  h1 {
-    font-size: 28px; /* Shrink large headers on mobile */
-  }
+.column-container-project {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Two equal columns */
+  gap: 15px;
+  margin: 0 auto;
 }
 
 .profile {
@@ -485,12 +527,12 @@ footer {
   color: var(--text-primary);
 }
 
-/* 3. The Actual Slider */
+/* 3. The Actual Slider - Compact Version */
 .theme-switch {
   display: inline-block;
-  height: 24px;
+  height: 15px;       /* Compact height */
   position: relative;
-  width: 50px;
+  width: 30px;        /* 2:1 ratio for a clean look */
 }
 
 .theme-switch input {
@@ -507,26 +549,31 @@ footer {
   top: 0;
   transition: .4s;
   border: 1px solid var(--accent-color);
+  border-radius: 15px; /* Keeps the pill shape */
 }
 
 .slider:before {
   background-color: #fff;
-  bottom: 3px;
+  bottom: 2px;        
   content: "";
-  height: 16px;
-  left: 4px;
+  height: 9px;        /* Smaller knob */
+  left: 3px;          
   position: absolute;
   transition: .4s;
-  width: 16px;
+  width: 9px;         
+  border-radius: 50%;
 }
 
-/* Slide animation */
+/* Updated sliding distance for the smaller track */
+input:checked + .slider:before {
+  transform: translateX(13px); 
+}/* Slide animation */
 input:checked + .slider {
   background-color: #888;
 }
 
 input:checked + .slider:before {
-  transform: translateX(24px);
+  transform: translateX(15px);
 }
 
 .slider.round {
@@ -536,3 +583,133 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+/*@media screen and (max-width: 1000px) { */
+.column-container {
+    grid-template-columns: 1fr; 
+    /* This ensures children of the grid center themselves */
+    justify-items: center; 
+  }
+
+.column-container-project {
+    grid-template-columns: 1fr; 
+    /* This ensures children of the grid center themselves */
+    justify-items: center; 
+  }
+
+   .card
+{
+  max-width: 800px;
+}
+/*}*/
+
+/*@media screen and (max-width: 700px) {  */
+  .me-container {
+    width: 200px; 
+    height: auto;
+    /* This is the magic for centering div-based images */
+    margin: 0 auto !important; 
+    aspect-ratio: 1 / 1; /* You may need to tweak this ratio for your headshot */
+  }
+
+  .card
+{
+  width: 90%;
+  max-width: 400px;
+  min-height: 250px; 
+  transform: translateX(-100px);
+}
+
+  .resume-card
+{
+  max-width: 400px;
+  min-height: 130px; 
+  transform: translateX(-100px);
+}
+  .project-card
+{
+  width: 90%;
+  max-width: 400px;
+  min-height: 400px; 
+  transform: translateX(-100px);
+}
+
+.marcitech-card {
+ width: 90vw;
+  transform: translateX(-100px);
+}
+
+.logo-container {
+  min-width: 330px; /* Match your preferred logo width */
+  height: 130px; /* Adjust based on your logo aspect ratio */
+}
+
+nav a {
+  font-size: 12px;
+}
+
+nav {
+  gap: 0px;
+  padding: 0px 0;
+  margin: 0 0px;
+}
+
+.theme-switch {
+    height: 14px;
+    width: 28px;
+  }
+
+  .slider:before {
+    height: 10px;
+    width: 10px;
+    bottom: 1px;
+    left: 2px;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(12px);
+  }
+h1 { font-size: 21px; }
+h2 { font-size: 19px; }
+h3 { font-size: 11px; }
+
+.topic-tag {
+  gap: 2px;
+  padding: 4px 7px;
+  border-radius: 15px;
+  font-size: 10px;
+}
+
+.topic-tag .icon {
+  font-size: 10px;
+}
+
+body {
+font-size: 12px;
+}
+
+a {
+  margin: 0 4px;
+  font-size: 12px;
+  padding: 2px 0;
+  border-radius: 30px;
+}
+
+.label-text {
+  font-size: 9px;
+}
+
+.password-note {
+  gap: 1px;
+  font-size: 9px;
+}
+
+p {
+	font-size: 12px;
+}
+
+.theme-switch-wrapper {
+  margin-top: 7px;
+}
+
+/*}*/
