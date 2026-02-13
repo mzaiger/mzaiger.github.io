@@ -146,8 +146,8 @@ background: color-mix(in srgb, var(--card-bg), transparent 25%);
 }
 
 .logo-container {
-  min-width: 560px; /* Match your preferred logo width */
-  height: 220px; /* Adjust based on your logo aspect ratio */
+  min-width: 440px; /* Match your preferred logo width */
+  height: 170px; /* Adjust based on your logo aspect ratio */
   background-image: var(--logo-url);
   background-size: contain;
   background-repeat: no-repeat;
@@ -226,7 +226,7 @@ nav a {
   margin: 0 8px;
   padding: 5px 10px;
   font-weight: 700;
-  font-size: 21px;
+  font-size: 16px;
   letter-spacing: 0.5px;
   color: var(--link-color);
   text-decoration: none;
@@ -516,12 +516,12 @@ footer {
   color: var(--text-primary);
 }
 
-/* 3. The Actual Slider */
+/* 3. The Actual Slider - Compact Version */
 .theme-switch {
   display: inline-block;
-  height: 24px;
+  height: 15px;       /* Compact height */
   position: relative;
-  width: 50px;
+  width: 30px;        /* 2:1 ratio for a clean look */
 }
 
 .theme-switch input {
@@ -538,26 +538,31 @@ footer {
   top: 0;
   transition: .4s;
   border: 1px solid var(--accent-color);
+  border-radius: 15px; /* Keeps the pill shape */
 }
 
 .slider:before {
   background-color: #fff;
-  bottom: 3px;
+  bottom: 2px;        
   content: "";
-  height: 16px;
-  left: 4px;
+  height: 9px;        /* Smaller knob */
+  left: 3px;          
   position: absolute;
   transition: .4s;
-  width: 16px;
+  width: 9px;         
+  border-radius: 50%;
 }
 
-/* Slide animation */
+/* Updated sliding distance for the smaller track */
+input:checked + .slider:before {
+  transform: translateX(13px); 
+}/* Slide animation */
 input:checked + .slider {
   background-color: #888;
 }
 
 input:checked + .slider:before {
-  transform: translateX(24px);
+  transform: translateX(15px);
 }
 
 .slider.round {
