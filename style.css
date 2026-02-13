@@ -573,9 +573,26 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+@media screen and (max-width: 1200px) {
+.column-container {
+    grid-template-columns: 1fr; 
+    /* This ensures children of the grid center themselves */
+    justify-items: center; 
+  }
 
+.column-container-project {
+    grid-template-columns: 1fr; 
+    /* This ensures children of the grid center themselves */
+    justify-items: center; 
+  }
 
-@media screen and (max-width: 700px) {  
+   .card
+{
+  max-width: 800px;
+}
+}
+
+@media screen and (max-width: 900px) {  
   .me-container {
     width: 200px; 
     height: auto;
