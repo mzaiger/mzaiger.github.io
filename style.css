@@ -350,7 +350,7 @@ h1 { font-size: 42px; }
 h2 { font-size: 30px; }
 h3 { font-size: 22px; }
 
-.project-card {
+.card {
   width: 90%;
   max-width: 950px;
   min-height: 450px;
@@ -372,7 +372,7 @@ h3 { font-size: 22px; }
 }
 
 
-.card {
+.project-card {
   width: 90%;
   max-width:800px;
   min-height: 700px;
