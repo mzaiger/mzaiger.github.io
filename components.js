@@ -22,6 +22,14 @@ const headerHTML = `
 
 document.body.insertAdjacentHTML('afterbegin', headerHTML);
 
+const isIPadSafari = 
+  /iPad/.test(navigator.userAgent) ||
+  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+if (isIPadSafari) {
+  document.querySelector('.h1').style.animation = 'none';
+}
+
 const toggleSwitch = document.querySelector('#checkbox');
   const currentTheme = localStorage.getItem('theme');
 const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
