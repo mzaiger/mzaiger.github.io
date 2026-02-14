@@ -27,7 +27,7 @@ const isIPadSafari =
   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
 if (isIPadSafari) {
-  document.querySelector('.h1').style.animation = 'none';
+  document.querySelector('h1').style.animation = 'none';
 }
 
 const toggleSwitch = document.querySelector('#checkbox');
