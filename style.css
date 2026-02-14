@@ -685,7 +685,7 @@ input:checked + .slider:before {
 
 .logo-container {
   width: 330px; /* Match your preferred logo width */
-  height: 130px; /* Adjust based on your logo aspect ratio */
+  height: 140px; /* Adjust based on your logo aspect ratio */
 }
 
 nav a {
