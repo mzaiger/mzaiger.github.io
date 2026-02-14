@@ -338,7 +338,7 @@ nav a:hover {
 h1 {
   color: var(--text-heading);
   letter-spacing: 0.8px;
-/*animation: slideInRight 0.8s ease-out forwards;*/
+animation: slideInRight 0.8s ease-out forwards;
 }
 
 h2, h3 {
