@@ -363,7 +363,7 @@ h3 { font-size: 22px; }
   margin-bottom: 36px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.45);
   opacity: 0;
-  transform: translateX(0px);
+  transform: translateX(-400px);
   transition: all 0.8s ease-out;
   flex-direction: column;
   align-items: center;
@@ -384,7 +384,7 @@ h3 { font-size: 22px; }
   margin-bottom: 36px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.45);
   opacity: 0;
-  transform: translateX(0);
+  transform: translateX(-200px);
   transition: all 1s ease-out;
   flex-direction: column;
   align-items: center;
@@ -419,7 +419,7 @@ position: relative; /* Good practice for positioning */
   margin-bottom: 36px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.45);
   opacity: 0;
-  transform: translateX(0px);
+  transform: translateX(-400px);
   transition: all 0.8s ease-out;
 }
 
@@ -437,7 +437,7 @@ position: relative; /* Good practice for positioning */
   margin-left: auto;
   margin-right: auto;
   opacity: 0;
-  transform: translateX(0px);
+  transform: translateX(-400px);
   transition: all 0.8s ease-out;
 }
 
@@ -617,26 +617,26 @@ input:checked + .slider:before {
   width: 90%;
   max-width: 400px;
   min-height: 250px; 
-  transform: translateX(0px);
+  transform: translateX(-100px);
 }
 
   .resume-card
 {
   max-width: 400px;
   min-height: 130px; 
-  transform: translateX(0);
+  transform: translateX(-100px);
 }
   .project-card
 {
   width: 90%;
   max-width: 400px;
   min-height: 400px; 
-  transform: translateX(0);
+  transform: translateX(-100px);
 }
 
 .marcitech-card {
  width: 90vw;
-  transform: translateX(0);
+  transform: translateX(-100px);
 }
 
 .logo-container {
