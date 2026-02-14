@@ -384,7 +384,7 @@ h3 { font-size: 22px; }
   margin-bottom: 36px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.45);
   opacity: 0;
-  transform: translateX(-200px);
+  transform: translateX(0);
   transition: all 1s ease-out;
   flex-direction: column;
   align-items: center;
@@ -424,7 +424,7 @@ position: relative; /* Good practice for positioning */
 }
 
 .marcitech-card {
- width: 90vw;
+ width: 90%;
   max-width: 1400px;
   height: 950px;
   padding: 28px;
@@ -617,26 +617,26 @@ input:checked + .slider:before {
   width: 90%;
   max-width: 400px;
   min-height: 250px; 
-  transform: translateX(-100px);
+  transform: translateX(0px);
 }
 
   .resume-card
 {
   max-width: 400px;
   min-height: 130px; 
-  transform: translateX(-100px);
+  transform: translateX(0);
 }
   .project-card
 {
   width: 90%;
   max-width: 400px;
   min-height: 400px; 
-  transform: translateX(-100px);
+  transform: translateX(0);
 }
 
 .marcitech-card {
  width: 90vw;
-  transform: translateX(-100px);
+  transform: translateX(0);
 }
 
 .logo-container {
