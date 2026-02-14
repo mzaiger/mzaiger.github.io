@@ -590,6 +590,16 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+@media screen and (min-width: 700px) {  
+@media (hover: none) and (pointer: coarse) {
+  h1 {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+}
+
 @media screen and (max-width: 1000px) {
 .column-container {
     grid-template-columns: 1fr; 
