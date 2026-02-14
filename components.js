@@ -12,6 +12,7 @@ window.addEventListener('scroll', function () {
 const headerHTML = `
 <header>
   <div class="header-main">
+    <div class="logo-wrap">
     <div class="logo-container"></div>
     <div class="theme-switch-wrapper">
       <span>Dark</span>
@@ -20,6 +21,7 @@ const headerHTML = `
         <div class="slider"></div>
       </label>
       <span>Light</span>
+    </div>
     </div>
     <nav>
       <a href="index.html">Home</a>
@@ -31,6 +33,34 @@ const headerHTML = `
 </header>`;
 
 document.body.insertAdjacentHTML('afterbegin', headerHTML);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const iframe = document.getElementById('myFrame');
+  const loadingBar = document.querySelector('.loading-bar');
+
+  if (iframe && loadingBar) {
+    // 1. Start the bar moving to give immediate feedback
+    setTimeout(() => {
+      loadingBar.style.width = '30%';
+    }, 100);
+
+    // 2. Move it further mid-way through
+    setTimeout(() => {
+      loadingBar.style.width = '70%';
+    }, 1000);
+
+    // 3. When the iframe is fully loaded
+    iframe.onload = () => {
+      loadingBar.style.width = '100%';
+      iframe.style.opacity = '1'; // Shows the iframe (matches your CSS transition)
+      
+      // Hide the bar after it hits 100%
+      setTimeout(() => {
+        loadingBar.classList.add('fade-out');
+      }, 300);
+    };
+  }
+});
 
 const toggleSwitch = document.querySelector('#checkbox');
   const currentTheme = localStorage.getItem('theme');
