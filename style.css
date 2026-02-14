@@ -202,7 +202,7 @@ animation: headerSlideUp 0.8s ease-out forwards;
   }
   100% {
     opacity: 2;
-    transform: translateY(-80%);    /* End in its natural position */
+    transform: translateY(-75%);    /* End in its natural position */
   }
 }
 
@@ -706,7 +706,7 @@ input:checked + .slider:before {
 
 .logo-container {
   width: 330px; /* Match your preferred logo width */
-  height: 140px; /* Adjust based on your logo aspect ratio */
+  height: 130px; /* Adjust based on your logo aspect ratio */
 }
 
 nav a {
@@ -715,8 +715,8 @@ nav a {
 
 nav {
   gap: 0px;
-  padding: 0px 0;
-  margin: 0 0px;
+  padding: 0px 0px;
+  margin: 12px 0px;
 }
 
 .theme-switch {
@@ -774,7 +774,7 @@ p {
 }
 
 .theme-switch-wrapper {
-  margin-top: 7px;
+  margin-top: 10px;
 }
 
 iframe {
