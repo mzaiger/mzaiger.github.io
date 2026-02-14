@@ -167,6 +167,9 @@ background: color-mix(in srgb, var(--card-bg), transparent 25%);
   margin: 0px;
 }
 
+.logo-container {
+  transition: all 0.4s ease;
+}
 
 header.scrolled .logo-container {
   transform: translateY(-100%);
