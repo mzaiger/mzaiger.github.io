@@ -167,21 +167,9 @@ background: color-mix(in srgb, var(--card-bg), transparent 25%);
   margin: 0px;
 }
 
-.logo-container {
-  transition: all 0.4s ease;
-}
 
-header.scrolled .logo-container {
-  transform: translateY(-100%);
-  opacity: 0;
-  height: 0;
-}
-
-header.scrolled .theme-switch-wrapper {
-  height: 0;
-  opacity: 0;
-  margin: 0;
-  overflow: hidden;
+header.scrolled{
+animation: headerSlideUp 0.8s ease-out forwards;
 }
 
 .me-container {
@@ -204,6 +192,17 @@ header.scrolled .theme-switch-wrapper {
   100% {
     opacity: 1;
     transform: translateY(0);    /* End in its natural position */
+  }
+}
+
+@keyframes headerSlideUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0%); /* Start completely off-screen (top) */
+  }
+  100% {
+    opacity: 2;
+    transform: translateY(-80%);    /* End in its natural position */
   }
 }
 
