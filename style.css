@@ -341,6 +341,12 @@ h1 {
 animation: slideInRight 0.8s ease-out forwards;
 }
 
+.no-animation {
+  animation: none !important;
+  opacity: 1;
+  transform: none;
+}
+
 h2, h3 {
   color: var(--text-heading);
   letter-spacing: 0.8px;

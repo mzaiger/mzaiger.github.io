@@ -26,7 +26,9 @@ const isIPadSafari =
   /iPad/.test(navigator.userAgent) ||
   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-
+if (isIPadSafari) {
+document.querySelector('h1').classList.toggle('no-animation');
+}
 
 const toggleSwitch = document.querySelector('#checkbox');
   const currentTheme = localStorage.getItem('theme');
