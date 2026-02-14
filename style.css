@@ -424,7 +424,7 @@ position: relative; /* Good practice for positioning */
 }
 
 .marcitech-card {
- width: 90%;
+ width: 90vw;
   max-width: 1400px;
   height: 950px;
   padding: 28px;
