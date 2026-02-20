@@ -354,7 +354,16 @@ nav a:hover {
 h1 {
   color: var(--text-heading);
   letter-spacing: 0.8px;
-animation: slideInRight 0.8s ease-out forwards;
+}
+
+/* TYPEWRITER CURSOR BLINK EFFECT */
+#typewriter-text::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: var(--link-color);
+}
+@keyframes blink {
+  50% { opacity: 0; }
 }
 
 .no-animation {
@@ -638,6 +647,72 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+/* --- NEW FEATURES STYLING --- */
+
+/* Scroll Progress Bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: var(--link-color);
+  width: 0%;
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+
+/* Back to Top Button */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: var(--link-color);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  background: var(--link-hover);
+  transform: translateY(-5px) scale(1.1);
+}
+
+/* --- POLISH: Card Hover Lift Effects --- */
+/* This makes the cards pop out towards the user when hovered */
+.card, .project-card, .resume-card, .marcitech-card {
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), 
+              box-shadow 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), 
+              opacity 0.8s ease-out;
+}
+
+/* Note: We only apply the hover lift if the card already has the 'show' class so it doesn't interrupt the load animation */
+.card.show:hover, .project-card.show:hover, .resume-card.show:hover, .marcitech-card.show:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+body.light-mode .card.show:hover, 
+body.light-mode .project-card.show:hover, 
+body.light-mode .resume-card.show:hover, 
+body.light-mode .marcitech-card.show:hover {
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15); /* Softer shadow for light mode */
+}
+
 @media screen and (min-width: 700px) {  
 @media (hover: none) and (pointer: coarse) {
   h1 {
@@ -681,27 +756,23 @@ input:checked + .slider:before {
   width: 90%;
   max-width: 400px;
   min-height: 250px; 
-  transform: translateX(-100px);
 }
 
   .resume-card
 {
   max-width: 400px;
   min-height: 130px; 
-  transform: translateX(-100px);
 }
   .project-card
 {
   width: 90%;
   max-width: 400px;
   min-height: 400px; 
-  transform: translateX(-100px);
 }
 
 
 .marcitech-card {
  width: 90vw;
-  transform: translateX(-100px);
 }
 
 .logo-container {

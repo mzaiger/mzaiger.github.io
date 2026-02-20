@@ -34,6 +34,41 @@ const headerHTML = `
 
 document.body.insertAdjacentHTML('afterbegin', headerHTML);
 
+// --- NEW FEATURES: Scroll Progress & Back to Top ---
+const extrasHTML = `
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <button id="backToTop" class="back-to-top" title="Go to top">↑</button>
+`;
+document.body.insertAdjacentHTML('beforeend', extrasHTML);
+
+window.addEventListener('scroll', function () {
+  // 1. Scroll Progress Bar Logic
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  const scrollProgressBar = document.getElementById("scrollProgress");
+  if (scrollProgressBar) {
+      scrollProgressBar.style.width = scrolled + "%";
+  }
+
+  // 2. Back to Top Button Logic
+  const btt = document.getElementById("backToTop");
+  if (btt) {
+      if (winScroll > 300) {
+        btt.classList.add("show");
+      } else {
+        btt.classList.remove("show");
+      }
+  }
+});
+
+// Back to Top Click Event
+document.body.addEventListener('click', function(e) {
+  if(e.target && e.target.id === 'backToTop') {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const iframe = document.getElementById('myFrame');
   const loadingBar = document.querySelector('.loading-bar');
@@ -60,13 +95,33 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 300);
     };
   }
+
+  // --- NEW FEATURE: Typewriter Effect ---
+  const typeWriterElement = document.getElementById('typewriter-text');
+  if (typeWriterElement) {
+    const textToType = typeWriterElement.textContent;
+    let i = 0;
+    typeWriterElement.innerHTML = ''; // Clear it first
+    
+    function typeWriter() {
+      if (i < textToType.length) {
+        typeWriterElement.innerHTML += textToType.charAt(i);
+        i++;
+        setTimeout(typeWriter, 120); // Adjust speed of typing here
+      }
+    }
+    
+    // Start typing after a short delay so it syncs with page load animations
+    setTimeout(typeWriter, 600); 
+  }
+
 });
 
+
 const toggleSwitch = document.querySelector('#checkbox');
-  const currentTheme = localStorage.getItem('theme');
+const currentTheme = localStorage.getItem('theme');
 const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 const savedTheme = localStorage.getItem('theme');
-
 
 if (savedTheme) {
   document.body.classList.toggle('light-mode', savedTheme === 'light');
@@ -78,18 +133,17 @@ if (savedTheme) {
   }
 }
 
+function switchTheme(e) {
+  if (e.target.checked) {
+    document.body.classList.add('light-mode');
+    localStorage.setItem('theme', 'light');
+  } else {
+    document.body.classList.remove('light-mode');
+    localStorage.setItem('theme', 'dark');
+  }    
+}
 
-  function switchTheme(e) {
-    if (e.target.checked) {
-      document.body.classList.add('light-mode');
-      localStorage.setItem('theme', 'light');
-    } else {
-      document.body.classList.remove('light-mode');
-      localStorage.setItem('theme', 'dark');
-    }    
-  }
-
-  toggleSwitch.addEventListener('change', switchTheme);
+toggleSwitch.addEventListener('change', switchTheme);
 
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
   if (!localStorage.getItem('theme')) {
