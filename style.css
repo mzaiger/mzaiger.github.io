@@ -756,23 +756,27 @@ body.light-mode .marcitech-card.show:hover {
   width: 90%;
   max-width: 400px;
   min-height: 250px; 
+  transform: translateX(-100px);
 }
 
   .resume-card
 {
   max-width: 400px;
   min-height: 130px; 
+  transform: translateX(-100px);
 }
   .project-card
 {
   width: 90%;
   max-width: 400px;
   min-height: 400px; 
+  transform: translateX(-100px);
 }
 
 
 .marcitech-card {
  width: 90vw;
+  transform: translateX(-100px);
 }
 
 .logo-container {
