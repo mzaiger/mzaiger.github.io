@@ -777,7 +777,7 @@ body.light-mode .marcitech-card.show:hover {
 .marcitech-card {
  width: 90vw;
   transform: translateX(-100px);
-  height: 450px;
+  height: 750px;
 }
 
 .logo-container {
@@ -860,5 +860,5 @@ iframe {
 }
 
 .iframe-wrapper {
-  height: 400px; /* adjust */
+  height: 600px; /* adjust */
 }
