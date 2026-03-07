@@ -507,7 +507,7 @@ position: relative; /* Good practice for positioning */
 
 .iframe-wrapper {
   width: 100%;
-  height: 100%; /* adjust */
+  height: 800px; /* adjust */
   overflow: hidden;
 }
 
@@ -858,4 +858,7 @@ iframe {
   height: 100%;
   transform: scale(0.5);
 }
+
+.iframe-wrapper {
+  height: 400px; /* adjust */
 }
