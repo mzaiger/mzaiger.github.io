@@ -551,7 +551,7 @@ iframe {
 
 .column-container-project {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr; /* Two equal columns */
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
   gap: 15px;
   margin: 0 auto;
 }
