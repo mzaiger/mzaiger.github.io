@@ -1,64 +1,328 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light dark">
-  <title>Marc Zaiger – Developer</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SuperTouch · Classic Arcade</title>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0b1a26;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .arcade-wrapper {
+            position: relative;
+            width: 900px;
+            height: 1050px;
+            background-image: url('background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #1a2f3e;
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* scanline overlay */
+        .arcade-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.04) 2px,
+                    rgba(0, 0, 0, 0.04) 4px);
+            opacity: 0.25;
+            mix-blend-mode: overlay;
+            z-index: 5;
+        }
+
+        /* ─── Main Menu button ─── */
+        #main-menu-btn {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            z-index: 20;
+            cursor: pointer;
+            display: none;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        #main-menu-btn img {
+            height: 48px;
+            width: auto;
+            display: block;
+            filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.6));
+        }
+        #main-menu-btn:hover {
+            transform: scale(1.18);
+            filter: brightness(1.15) drop-shadow(0 6px 18px rgba(127, 255, 212, 0.35));
+        }
+        #main-menu-btn:active {
+            transform: scale(0.94);
+            transition-duration: 0.08s;
+        }
+
+        /* ─── 2×4 tile menu grid ─── */
+        .game-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            width: 85%;
+            height: 70%;
+            gap: 4% 6%;
+            align-items: center;
+            justify-items: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .game-tile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
+            cursor: pointer;
+            border-radius: 8px;
+            position: relative;
+            text-decoration: none;
+            background: transparent;
+            padding: 0;
+        }
+        .game-tile:hover {
+            transform: scale(1.10);
+            filter: brightness(1.10) drop-shadow(0 8px 30px rgba(127, 255, 212, 0.20));
+            z-index: 10;
+        }
+        .game-tile:active {
+            transform: scale(0.94);
+            transition-duration: 0.08s;
+        }
+        .game-tile img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+            transition: filter 0.25s ease;
+            border-radius: 4px;
+            user-select: none;
+            -webkit-user-drag: none;
+            background: linear-gradient(90deg, #1a2f3e 25%, #2a4a5e 50%, #1a2f3e 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s ease-in-out infinite;
+        }
+        .game-tile img[src] {
+            animation: none;
+            background: transparent;
+        }
+        .game-tile:hover img {
+            filter: drop-shadow(0 8px 28px rgba(0, 0, 0, 0.6));
+        }
+        .game-tile.empty {
+            cursor: default;
+            pointer-events: none;
+            background: transparent !important;
+            box-shadow: none !important;
+            transform: none !important;
+            filter: none !important;
+        }
+        .game-tile.empty img,
+        .game-tile.empty .fallback-label {
+            display: none;
+        }
+        .game-tile .fallback-label {
+            display: none;
+            color: #7fffd4;
+            font-size: clamp(14px, 2.8vw, 32px);
+            text-align: center;
+            letter-spacing: 1px;
+            line-height: 1.2;
+            padding: 0 6%;
+        }
+        .game-tile img:not([src])+.fallback-label,
+        .game-tile img[src=""]+.fallback-label {
+            display: block;
+        }
+        .game-tile img:not([src]),
+        .game-tile img[src=""] {
+            display: none;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        .game-tile.pos-t1 {
+            grid-column: 1;
+            grid-row: 2;
+        }
+        .game-tile.pos-t2 {
+            grid-column: 2;
+            grid-row: 2;
+        }
+        .game-tile.pos-t3 {
+            grid-column: 1;
+            grid-row: 3;
+        }
+        .game-tile.pos-t4 {
+            grid-column: 2;
+            grid-row: 3;
+        }
+        .game-tile.empty-top-left {
+            grid-column: 1;
+            grid-row: 1;
+        }
+        .game-tile.empty-top-right {
+            grid-column: 2;
+            grid-row: 1;
+        }
+        .game-tile.empty-bottom-left {
+            grid-column: 1;
+            grid-row: 4;
+        }
+        .game-tile.empty-bottom-right {
+            grid-column: 2;
+            grid-row: 4;
+        }
+
+        /* ─── 1×3 iframe grid ─── */
+        .iframe-grid {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 2;
+            grid-template-columns: 1fr;
+            grid-template-rows: 3.3fr 10fr 1fr;
+        }
+        .iframe-grid.active {
+            display: grid;
+        }
+
+        /* iframe goes in center row */
+        .iframe-center {
+            grid-column: 1;
+            grid-row: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .iframe-center iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            zoom: 1.15;
+        }
+    </style>
 </head>
 <body>
 
-<script src="components.js"></script>
+    <div class="arcade-wrapper">
 
-<div class="container">
-  <div class="profile">
-    <h1 id="typewriter-text">Marc Zaiger</h1>
-    
-    <div class="card">
-      <div class="column-container">
-        <div class="column">
-          <div class="me-container"></div>
+        <!-- Main Menu button -->
+        <div id="main-menu-btn" title="Main Menu" onclick="uiClick(); showMenu();">
+            <img src="mainmenu.png" alt="Main Menu" />
         </div>
-        <div class="column">
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;
-            A Database Administrator moon lighting as a game developer. I have decades of developer and database administrator experience in a professional setting.
-          </p>
-          <p>&nbsp;&nbsp;&nbsp;&nbsp; 
-            I'm a huge sports fan, my teams are the Nebraska Cornhuskers, the Cleveland Guardians and the San Francisco 49ers. I enjoy all sports from World Cup and Olympics to Basketball, Baseball and Football. I will even watch Hockey occasionally.
-          </p>
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;
-            I enjoy playing poker in my free time in person and on Meta Quest within the Vegas Infinite app. I enjoy riding my bike in nice weather and I record all my bike rides in the Strava app. I am somewhat of a Foodie. I enjoy cooking food and going out to new restaurants.
-          </p>
-        </div>
-      </div> <div class="topic-tags">
-        <span class="topic-tag"><span class="icon">🎓</span> Nebraska Cornhuskers</span>
-        <span class="topic-tag"><span class="icon">⚾</span> Cleveland Guardians</span>
-        <span class="topic-tag"><span class="icon">🏈</span> San Francisco 49ers</span>
-        <span class="topic-tag"><span class="icon">🎮</span> Game Development</span>
-        <span class="topic-tag"><span class="icon">🚴</span> Cycling</span>
-        <span class="topic-tag"><span class="icon">🍕</span> Foodie</span>
-        <span class="topic-tag"><span class="icon">♠️</span> Poker</span>
-      </div>
-      
-      <div class="social-links">
-        <div class="column-container">
-          <div class="column">
-            <a href="https://horizon.meta.com/profile/Zegster/" target="_blank" class="social-btn">
-              <span>🥽 Follow me on Meta Quest</span>
+
+        <!-- TILE MENU -->
+        <div class="game-grid" id="tile-menu">
+            <span class="game-tile empty empty-top-left"></span>
+            <span class="game-tile empty empty-top-right"></span>
+
+            <!-- 11 Rounds -->
+            <a href="#" class="game-tile pos-t1" title="11 Rounds" onclick="uiClick(); loadGame('11rounds.html'); return false;">
+                <img src="11roundslogo.png" alt="11 Rounds" loading="lazy" />
+                <span class="fallback-label">11 ROUNDS</span>
             </a>
-          </div>
-          <div class="column">
-            <a href="https://www.strava.com/athletes/102404752" target="_blank" class="social-btn">
-              <span>🚴 Follow me on Strava</span>
+
+            <!-- Tri Pillars -->
+            <a href="#" class="game-tile pos-t2" title="Tri Pillars" onclick="uiClick(); loadGame('tripillars.html'); return false;">
+                <img src="tripillarslogo.png" alt="Tri Pillars" loading="lazy" />
+                <span class="fallback-label">TRI PILLARS</span>
             </a>
-          </div>
+
+            <!-- Squares -->
+            <a href="#" class="game-tile pos-t3" title="Squares" onclick="uiClick(); loadGame('squares.html'); return false;">
+                <img src="squareslogo.png" alt="Squares" loading="lazy" />
+                <span class="fallback-label">SQUARES</span>
+            </a>
+
+            <!-- Photo Find -->
+            <a href="#" class="game-tile pos-t4" title="Photo Find" onclick="uiClick(); loadGame('photofind.html'); return false;">
+                <img src="photofind.png" alt="Photo Find" loading="lazy" />
+                <span class="fallback-label">PHOTO FIND</span>
+            </a>
+
+            <span class="game-tile empty empty-bottom-left"></span>
+            <span class="game-tile empty empty-bottom-right"></span>
         </div>
-      </div>
-    </div> </div> </div> <footer>© Marc Zaiger</footer>
+
+        <!-- 1×3 IFRAME GRID — top empty / iframe / bottom empty -->
+        <div class="iframe-grid" id="iframe-panel">
+            <div></div>
+            <div class="iframe-center">
+                <iframe id="game-frame" src="" scrolling="no" allowtransparency="true" style="background: transparent;"></iframe>
+            </div>
+            <div></div>
+        </div>
+
+    </div>
+
+    <script>
+        // ─── UI click sound (uses the shared fx/ folder) ───────────────────────
+        var _uiSnd = new Audio('fx/correct-sound.mp3');
+        _uiSnd.volume = 0.6;
+        function uiClick() {
+            _uiSnd.currentTime = 0;
+            _uiSnd.play().catch(function(){});
+        }
+
+        // ─── Game navigation ────────────────────────────────────────────────────
+        function loadGame(url) {
+            document.getElementById('game-frame').src = url;
+            document.getElementById('tile-menu').style.display = 'none';
+            document.getElementById('iframe-panel').classList.add('active');
+            document.getElementById('main-menu-btn').style.display = 'block';
+        }
+
+        function showMenu() {
+            document.getElementById('game-frame').src = '';
+            document.getElementById('iframe-panel').classList.remove('active');
+            document.getElementById('tile-menu').style.display = '';
+            document.getElementById('main-menu-btn').style.display = 'none';
+        }
+    </script>
 
 </body>
 </html>
