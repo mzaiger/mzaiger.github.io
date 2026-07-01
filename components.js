@@ -27,7 +27,6 @@ const headerHTML = `
       <a href="index.html">Home</a>
       <a href="resume.html">Resume</a>
       <a href="projects.html">Side Projects</a>
-      <a href="github.html">GitHub</a>
       <a href="marcitech.html">Old Site</a>
     </nav>
   </div>
