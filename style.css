@@ -436,18 +436,19 @@ position: relative; /* Good practice for positioning */
 }
 
 .github-iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
+    width: 200%;
+    height: 200%;
+    transform: scale(0.5);
+    transform-origin: top left;
+    border: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 
-.github-iframe {
-  width: 200%;
-  height: 200%;
-  transform: scale(0.5);
-  transform-origin: top left;
+    /* Prevent ALL interaction */
+    pointer-events: none;
+
+    /* Hide any scrollbar area */
+    overflow: hidden;
 }
 
 .project-video {
