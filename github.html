@@ -56,7 +56,10 @@
 
       column.innerHTML = `
         <div class="project-card">
-          <iframe class="project-video project-iframe" src="${liveUrl}" title="${escapeHTML(repo.name)} live site" loading="lazy"></iframe>
+          <div class="github-iframe-wrapper">
+            <div class="loading-bar"></div>
+            <iframe class="github-iframe" src="${liveUrl}" title="${escapeHTML(repo.name)} live site" loading="lazy"></iframe>
+          </div>
           <h2>${escapeHTML(repo.name)}</h2>
           <p class="project-desc">&nbsp;&nbsp;&nbsp;&nbsp;
             ${repo.description ? escapeHTML(repo.description) : 'No description provided.'}
@@ -66,6 +69,20 @@
         </div>
       `;
       gridEl.appendChild(column);
+
+      // Drive the loading bar + fade-in for this card's iframe,
+      // same behavior as the #myFrame logic in components.js
+      const iframeEl = column.querySelector('.github-iframe');
+      const barEl = column.querySelector('.loading-bar');
+
+      setTimeout(() => { barEl.style.width = '30%'; }, 100);
+      setTimeout(() => { barEl.style.width = '70%'; }, 1000);
+
+      iframeEl.onload = () => {
+        barEl.style.width = '100%';
+        iframeEl.style.opacity = '1';
+        setTimeout(() => { barEl.classList.add('fade-out'); }, 300);
+      };
     });
 
     // Re-trigger the existing fade-in observer used across the site
