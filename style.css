@@ -426,6 +426,11 @@ position: relative; /* Good practice for positioning */
   padding-top: 0;     /* Remove top padding so video touches the top */
 }
 
+.project-iframe {
+  height: 350px;
+  border: none;
+}
+
 .project-video {
   width: 100%;
   display: block;
