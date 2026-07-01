@@ -36,6 +36,14 @@
     return div.innerHTML;
   }
 
+  function formatDate(dateStr) {
+    return new Date(dateStr).toLocaleDateString(undefined, {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  }
+
   function renderRepos(repos) {
     gridEl.innerHTML = '';
 
@@ -61,6 +69,7 @@
             <iframe class="github-iframe" src="${liveUrl}" title="${escapeHTML(repo.name)} live site" loading="lazy"></iframe>
           </div>
           <h2>${escapeHTML(repo.name)}</h2>
+          <p class="repo-updated">Last updated: ${formatDate(repo.pushed_at)}</p>
           <p class="project-desc">&nbsp;&nbsp;&nbsp;&nbsp;
             ${repo.description ? escapeHTML(repo.description) : 'No description provided.'}
           </p>
@@ -109,7 +118,7 @@
       const data = await res.json();
 
       // Sort: original repos first (by most recently pushed), then forks
-      const EXCLUDED_REPOS = [`${GITHUB_USER}.github.io`, 'register'];
+      const EXCLUDED_REPOS = [`${GITHUB_USER}.github.io`, 'register', 'baja-blast-tracker'];
 
       const repos = data
         .filter(repo => !EXCLUDED_REPOS.includes(repo.name.toLowerCase()))
