@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>GitHub Repositories</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<script src="components.js"></script>
+<div class="container">
+  <h1 id="typewriter-text">GitHub Repositories</h1>
+  <p class="github-intro">
+    Live list of my public repositories, pulled directly from GitHub.
+  </p>
+
+  <div class="github-filter-bar" id="githubFilterBar" style="display:none;">
+    <button class="github-filter-btn active" data-filter="all">All</button>
+    <button class="github-filter-btn" data-filter="owner">Original</button>
+    <button class="github-filter-btn" data-filter="fork">Forks</button>
+  </div>
+
+  <div class="github-status" id="githubStatus">
+    <div class="github-spinner"></div>
+    Loading repositories from GitHub&hellip;
+  </div>
+
+  <div class="github-grid" id="githubGrid"></div>
+</div>
+<footer>© Marc Zaiger</footer>
+
+<script>
+(function () {
+  const GITHUB_USER = 'mzaiger';
+  const statusEl = document.getElementById('githubStatus');
+  const gridEl = document.getElementById('githubGrid');
+  const filterBar = document.getElementById('githubFilterBar');
+
+  // Rough color map for common languages (mirrors GitHub's own palette)
+  const LANG_COLORS = {
+    JavaScript: '#f1e05a',
+    TypeScript: '#3178c6',
+    HTML: '#e34c26',
+    CSS: '#563d7c',
+    Python: '#3572A5',
+    'C#': '#178600',
+    'C++': '#f34b7d',
+    C: '#555555',
+    Java: '#b07219',
+    Shell: '#89e051',
+    PHP: '#4F5D95',
+    Ruby: '#701516',
+    Go: '#00ADD8',
+    Rust: '#dea584',
+    Swift: '#F05138',
+    Kotlin: '#A97BFF',
+    Vue: '#41b883',
+    'Jupyter Notebook': '#DA5B0B'
+  };
+
+  function langColor(lang) {
+    return LANG_COLORS[lang] || '#8b8b8b';
+  }
+
+  function timeAgo(dateStr) {
+    const date = new Date(dateStr);
+    const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+    const units = [
+      ['year', 31536000],
+      ['month', 2592000],
+      ['day', 86400],
+      ['hour', 3600],
+      ['minute', 60]
+    ];
+    for (const [name, secs] of units) {
+      const val = Math.floor(seconds / secs);
+      if (val >= 1) return `${val} ${name}${val > 1 ? 's' : ''} ago`;
+    }
+    return 'just now';
+  }
+
+  function escapeHTML(str) {
+    const div = document.createElement('div');
+    div.textContent = str || '';
+    return div.innerHTML;
+  }
+
+  function renderRepos(repos) {
+    gridEl.innerHTML = '';
+
+    if (repos.length === 0) {
+      statusEl.style.display = '';
+      statusEl.textContent = 'No repositories to show for this filter.';
+      return;
+    }
+
+    statusEl.style.display = 'none';
+
+    repos.forEach(repo => {
+      const card = document.createElement('div');
+      card.className = 'repo-card';
+      card.dataset.type = repo.fork ? 'fork' : 'owner';
+
+      const lang = repo.language
+        ? `<span class="repo-lang"><span class="repo-lang-dot" style="background:${langColor(repo.language)}"></span>${escapeHTML(repo.language)}</span>`
+        : '';
+
+      const repoUrl = repo.html_url;
+      const liveUrl = `https://marcitech.is-a.dev/${repo.name}`;
+
+      card.innerHTML = `
+        <div class="repo-card-header">
+          <a class="repo-name" href="${repoUrl}" target="_blank" rel="noopener">${escapeHTML(repo.name)}</a>
+          ${repo.fork ? '<span class="repo-fork-badge">Fork</span>' : ''}
+        </div>
+        <p class="repo-desc">${repo.description ? escapeHTML(repo.description) : '<em>No description provided.</em>'}</p>
+        <div class="repo-meta">
+          ${lang}
+          <span class="repo-stat">⭐ ${repo.stargazers_count}</span>
+          <span class="repo-stat">🍴 ${repo.forks_count}</span>
+          <span class="repo-stat">Updated ${timeAgo(repo.pushed_at)}</span>
+        </div>
+        <div class="repo-links">
+          <a class="repo-link-line" href="${repoUrl}" target="_blank" rel="noopener">${repoUrl}</a>
+          <a class="repo-link-line" href="${liveUrl}" target="_blank" rel="noopener">${liveUrl}</a>
+        </div>
+      `;
+      gridEl.appendChild(card);
+    });
+
+    // Re-trigger the existing fade-in observer used across the site
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.repo-card').forEach(card => observer.observe(card));
+  }
+
+  let allRepos = [];
+
+  function applyFilter(filter) {
+    if (filter === 'all') {
+      renderRepos(allRepos);
+    } else {
+      renderRepos(allRepos.filter(r => (filter === 'fork') === !!r.fork));
+    }
+  }
+
+  filterBar.addEventListener('click', (e) => {
+    const btn = e.target.closest('.github-filter-btn');
+    if (!btn) return;
+    filterBar.querySelectorAll('.github-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilter(btn.dataset.filter);
+  });
+
+  async function loadRepos() {
+    try {
+      const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=pushed`);
+
+      if (!res.ok) {
+        if (res.status === 403) {
+          throw new Error('GitHub API rate limit reached. Please refresh again in a bit.');
+        }
+        throw new Error(`GitHub API returned ${res.status}`);
+      }
+
+      const data = await res.json();
+
+      // Sort: original repos first (by most recently pushed), then forks
+      allRepos = data.sort((a, b) => {
+        if (!!a.fork !== !!b.fork) return a.fork ? 1 : -1;
+        return new Date(b.pushed_at) - new Date(a.pushed_at);
+      });
+
+      filterBar.style.display = 'flex';
+      renderRepos(allRepos);
+    } catch (err) {
+      statusEl.classList.add('error');
+      statusEl.textContent = `Couldn't load repositories: ${err.message}`;
+    }
+  }
+
+  loadRepos();
+})();
+</script>
+</body>
+</html>
