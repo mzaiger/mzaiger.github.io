@@ -775,6 +775,13 @@ body.light-mode .marcitech-card.show:hover {
     aspect-ratio: 1 / 1; /* You may need to tweak this ratio for your headshot */
   }
 
+	.github-iframe {
+  width: 500%;
+  height: 500%;
+  transform: scale(0.2);
+  transform-origin: top left;
+}
+
   .card
 {
   width: 90%;
