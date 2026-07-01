@@ -889,25 +889,27 @@ iframe {
 }
 
 .github-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
   width: 90%;
-  max-width: 1100px;
+  max-width: 950px;
   margin: 0 auto 40px;
 }
 
 .repo-card {
+  width: 100%;
+  min-height: 260px;
   background: var(--card-bg);
   color: var(--text-primary);
   border-radius: 14px;
-  padding: 22px;
+  padding: 32px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.45);
   text-align: left;
   display: flex;
   flex-direction: column;
+  margin-bottom: 36px;
   opacity: 0;
-  transform: translateX(-200px);
+  transform: translateX(-400px);
   transition: all 0.8s ease-out;
 }
 
@@ -925,22 +927,17 @@ iframe {
 }
 
 .repo-name {
-  font-size: 20px;
+  font-size: 28px;
   font-weight: 700;
-  color: var(--link-color);
-  text-decoration: none;
+  color: var(--text-heading);
   margin: 0;
   word-break: break-word;
 }
 
-.repo-name:hover {
-  color: var(--link-hover);
-}
-
 .repo-fork-badge {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
-  padding: 3px 9px;
+  padding: 4px 11px;
   border-radius: 20px;
   border: 1px solid var(--text-primary);
   opacity: 0.7;
@@ -948,21 +945,19 @@ iframe {
 }
 
 .repo-desc {
-  margin: 12px 0;
-  font-size: 15px;
-  line-height: 1.5;
-  flex-grow: 1;
+  margin: 16px 0;
+  font-size: 17px;
+  line-height: 1.6;
   opacity: 0.9;
 }
 
 .repo-meta {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
   flex-wrap: wrap;
-  font-size: 13px;
+  font-size: 14px;
   opacity: 0.85;
-  margin-top: auto;
 }
 
 .repo-lang {
@@ -972,8 +967,8 @@ iframe {
 }
 
 .repo-lang-dot {
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
   display: inline-block;
 }
@@ -985,16 +980,16 @@ iframe {
 }
 
 .repo-links {
-  margin-top: 14px;
-  padding-top: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
   border-top: 1px solid rgba(128,128,128,0.25);
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .repo-link-line {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   word-break: break-all;
 }
@@ -1049,7 +1044,11 @@ iframe {
 }
 
 @media (max-width: 800px) {
-  .github-grid {
-    grid-template-columns: 1fr;
+  .repo-card {
+    padding: 22px;
+  }
+
+  .repo-name {
+    font-size: 22px;
   }
 }
