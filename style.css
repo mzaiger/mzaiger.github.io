@@ -777,9 +777,9 @@ body.light-mode .marcitech-card.show:hover {
   }
 
 	.github-iframe {
-  width: 500%;
-  height: 500%;
-  transform: scale(0.2);
+  width: 333%;
+  height: 333%;
+  transform: scale(0.33);
   transform-origin: top left;
 }
 
