@@ -443,9 +443,9 @@ position: relative; /* Good practice for positioning */
 }
 
 .github-iframe {
-  width: 500%;
-  height: 500%;
-  transform: scale(0.2);
+  width: 200%;
+  height: 200%;
+  transform: scale(0.5);
   transform-origin: top left;
 }
 
