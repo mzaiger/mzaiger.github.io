@@ -109,10 +109,12 @@
       const data = await res.json();
 
       // Sort: original repos first (by most recently pushed), then forks
-      const repos = data.sort((a, b) => {
-        if (!!a.fork !== !!b.fork) return a.fork ? 1 : -1;
-        return new Date(b.pushed_at) - new Date(a.pushed_at);
-      });
+      const repos = data
+        .filter(repo => repo.name.toLowerCase() !== `${GITHUB_USER}.github.io`)
+        .sort((a, b) => {
+          if (!!a.fork !== !!b.fork) return a.fork ? 1 : -1;
+          return new Date(b.pushed_at) - new Date(a.pushed_at);
+        });
 
       renderRepos(repos);
     } catch (err) {
