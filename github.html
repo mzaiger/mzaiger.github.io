@@ -114,7 +114,7 @@
 
       card.innerHTML = `
         <div class="repo-card-header">
-          <a class="repo-name" href="${repoUrl}" target="_blank" rel="noopener">${escapeHTML(repo.name)}</a>
+          <h2 class="repo-name">${escapeHTML(repo.name)}</h2>
           ${repo.fork ? '<span class="repo-fork-badge">Fork</span>' : ''}
         </div>
         <p class="repo-desc">${repo.description ? escapeHTML(repo.description) : '<em>No description provided.</em>'}</p>
