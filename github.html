@@ -118,7 +118,7 @@
       const data = await res.json();
 
       // Sort: original repos first (by most recently pushed), then forks
-      const EXCLUDED_REPOS = [`${GITHUB_USER}.github.io`, 'register', 'baja-blast-tracker'];
+      const EXCLUDED_REPOS = [`${GITHUB_USER}.github.io`, 'register'];
 
       const repos = data
         .filter(repo => !EXCLUDED_REPOS.includes(repo.name.toLowerCase()))
