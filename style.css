@@ -428,7 +428,7 @@ position: relative; /* Good practice for positioning */
 }
 
 .github-iframe-wrapper {
-  width: 100%;
+  width: 105%;
   height: 350px;
   overflow: hidden;
   position: relative;
