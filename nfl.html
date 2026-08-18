@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">gemini-pick-label
-<title>Sports Dashboard - NCAAF</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sports Dashboard - NFL</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -11,8 +11,8 @@
     --bg: #0a0d10;
     --bg-panel: #12161b;
     --line: #232a31;
-    --turf: #2f8f5b;
-    --turf-bright: #43c179;
+    --turf: #2f5f8f;
+    --turf-bright: #4394c1;
     --chalk: #e8ecef;
     --dim: #8a95a1;
     --gold: #e0a63c;
@@ -32,303 +32,6 @@
     min-height:100vh;
     padding-bottom:4rem;
   }
-  .hero{
-    padding:2.5rem 1.5rem 1.75rem;
-    border-bottom:1px solid var(--line);
-    position:relative;
-    overflow:hidden;
-  }
-  .hero::before{
-    content:"";
-    position:absolute; inset:0;
-    background:linear-gradient(120deg, rgba(47,143,91,0.16), transparent 55%);
-    pointer-events:none;
-  }
-  .hero-inner{max-width:1180px;margin:0 auto;position:relative;}
-  .eyebrow{
-    font-family:'Oswald',sans-serif;
-    text-transform:uppercase;
-    letter-spacing:0.22em;
-    font-size:0.72rem;
-    color:var(--turf-bright);
-    font-weight:600;
-  }
-  h1{
-    font-family:'Oswald',sans-serif;
-    font-weight:700;
-    font-size:clamp(2rem, 5vw, 3.1rem);
-    margin:0.35rem 0 0.5rem;
-    letter-spacing:-0.01em;
-  }
-  .meta-row{
-    display:flex; flex-wrap:wrap; gap:1.25rem;
-    color:var(--dim); font-size:0.82rem; margin-top:0.5rem;
-  }
-  .meta-row b{color:var(--chalk); font-weight:600;}
-  .channels{
-    display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.9rem;
-  }
-  .chan-pill{
-    border:1px solid var(--line); border-radius:999px;
-    padding:0.15rem 0.65rem; font-size:0.72rem; color:var(--dim);
-  }
-
-  main{max-width:1180px;margin:0 auto; padding:0 1.5rem;}
-
-  .day-block{margin-top:2.5rem;}
-  .day-heading{
-    display:flex; align-items:baseline; gap:0.75rem;
-    padding-bottom:0.6rem; margin-bottom:1.1rem;
-    border-bottom:2px solid var(--turf);
-  }
-  .day-heading .weekday{
-    font-family:'Oswald',sans-serif; font-weight:700; font-size:1.5rem;
-    text-transform:uppercase; letter-spacing:0.02em;
-  }
-  .day-heading .date{color:var(--dim); font-size:0.85rem;}
-  .day-heading .count{
-    margin-left:auto; color:var(--dim); font-size:0.78rem;
-  }
-
-  .slot-block{margin-bottom:1.75rem;}
-  .slot-block:last-child{margin-bottom:0;}
-  .slot-heading{
-    display:flex; align-items:baseline; gap:0.6rem;
-    margin-bottom:0.7rem;
-  }
-  .slot-heading .slot-name{
-    font-family:'Oswald',sans-serif; font-weight:600; font-size:0.95rem;
-    text-transform:uppercase; letter-spacing:0.08em; color:var(--turf-bright);
-  }
-  .slot-heading .slot-icon{font-size:0.9rem;}
-  .slot-heading::after{
-    content:""; flex:1; height:1px; background:var(--line);
-  }
-  .slot-heading .slot-count{color:var(--dim); font-size:0.72rem;}
-
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(340px, 1fr));
-    gap:1rem;
-  }
-
-  .card{
-    background:var(--bg-panel);
-    border:1px solid var(--line);
-    border-radius:10px;
-    padding:1.1rem 1.2rem 1.2rem;
-    position:relative;
-    transition:border-color .15s ease, transform .15s ease;
-  }
-  .card:hover{border-color:#39424b; transform:translateY(-1px);}
-  .card.marquee{border-color:rgba(224,166,60,0.55); box-shadow:0 0 0 1px rgba(224,166,60,0.12), 0 8px 24px -12px rgba(224,166,60,0.25);}
-  .card.slot-pick{
-    border:2px solid var(--pick-yellow);
-    box-shadow:0 0 0 1px rgba(255,214,10,0.25), 0 10px 26px -12px rgba(255,214,10,0.4);
-    padding-top:2.4rem;
-  }
-  .pick-banner{
-    position:absolute; top:0; left:0; right:0;
-    background:var(--pick-yellow); color:#1a1400;
-    font-family:'Oswald',sans-serif; font-weight:700; font-size:0.7rem;
-    text-transform:uppercase; letter-spacing:0.1em; text-align:center;
-    padding:0.3rem 0.5rem; border-radius:9px 9px 0 0;
-  }
-  .odds td.picked{background:rgba(255,214,10,0.16); color:var(--pick-yellow); font-weight:700; border-radius:4px;}
-  .odds td.hit{background:rgba(62,207,106,0.18); color:#3ecf6a; font-weight:700; border-radius:4px;}
-  .odds td.miss{background:rgba(226,88,74,0.16); color:var(--loss-red); font-weight:700; border-radius:4px;}
-  .odds td.picked.hit,
-  .odds td.picked.miss{box-shadow:inset 0 0 0 2px var(--pick-yellow);}
-  .pick-toolbar{display:grid; grid-template-columns:repeat(4,1fr); gap:0.35rem; margin-top:0.6rem;}
-  .payout-summary{
-    grid-column: 1 / -1;
-    font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-weight:700; color:#ffffff;
-    text-align:center; margin-top:0.25rem;
-  }
-  .pick-btn{
-    font-family:'Inter',sans-serif; font-size:0.68rem; font-weight:600;
-    color:var(--dim); background:#161b20; border:1px solid var(--line);
-    border-radius:6px; padding:0.4rem 0.2rem; cursor:pointer;
-    text-align:center; line-height:1.15; transition:all 0.12s ease;
-  }
-  .pick-btn:hover{border-color:var(--pick-yellow); color:var(--chalk);}
-  .pick-btn.active{background:var(--pick-yellow); border-color:var(--pick-yellow); color:#1a1400;}
-  .pick-btn:disabled{opacity:0.55; cursor:not-allowed;}
-  .pick-btn:disabled:hover{border-color:var(--line); color:var(--dim);}
-  .pick-btn.active:disabled{color:#1a1400;}
-  .pick-btn.active:disabled:hover{border-color:var(--pick-yellow);}
-
-  .card-top{display:flex; justify-content:space-between; align-items:flex-start; gap:0.75rem;}
-  .score-badge{
-    font-family:'Oswald',sans-serif; font-weight:600; font-size:0.68rem;
-    text-transform:uppercase; letter-spacing:0.08em; color:var(--turf-bright);
-    border:1px solid rgba(67,193,121,0.35); border-radius:999px;
-    padding:0.2rem 0.55rem; white-space:nowrap;
-  }
-  .marquee .score-badge{color:var(--gold); border-color:rgba(224,166,60,0.45);}
-  .channel-pill{
-    font-family:'Oswald',sans-serif; font-weight:600; font-size:0.7rem;
-    background:var(--turf); color:#04140a; border-radius:5px;
-    padding:0.2rem 0.5rem; letter-spacing:0.02em;
-    /* Capped to roughly the width of the Matchup badge ("Matchup: XX")
-       and wraps instead of overflowing, so a long combined national-TV
-       string (e.g. multiple networks) doesn't blow out the card width or
-       push the score badge off to one side. */
-    max-width: 35ch; white-space: normal; overflow-wrap: break-word;
-    text-align: left; line-height: 1.3;
-  }
-
-  .matchup{
-    margin:0.85rem 0 0.6rem;
-    display:flex; align-items:center; justify-content:center; flex-wrap:nowrap; gap:0.45rem;
-    font-family:'Oswald',sans-serif; font-size:1.05rem; font-weight:600;
-    white-space:nowrap; overflow-x:auto; scrollbar-width:none;
-  }
-  .matchup::-webkit-scrollbar{display:none;}
-  .team{display:inline-flex; align-items:center; gap:0.4rem;}
-  .team-name-wrap{display:inline-flex; flex-direction:column; align-items:flex-start; line-height:1.2;}
-  .team-name-line{display:inline-flex; align-items:baseline; gap:0.4rem;}
-  .team-name{font-size:0.98rem;}
-  .team-record{
-    /* Oswald (condensed sans) instead of the monospace font used
-       elsewhere -- monospace reads noticeably "spread out" at this size
-       for a W-L record + pitcher line, condensed reads more compact. */
-    font-family:'Oswald',sans-serif; font-weight:500; font-size:0.68rem;
-    letter-spacing:0.01em; color:var(--dim);
-  }
-  .team-pitcher{
-    font-family:'Oswald',sans-serif; font-weight:500; font-size:0.76rem;
-    letter-spacing:0.01em; color:var(--dim); opacity:0.85;
-  }
-  .rank{
-    font-size:0.68rem; color:var(--gold); border:1px solid rgba(224,166,60,0.4);
-    border-radius:4px; padding:0.05rem 0.3rem; min-width:1.6rem; text-align:center;
-    flex-shrink:0;
-  }
-  .at{color:var(--dim); font-size:0.72rem; font-family:'JetBrains Mono',monospace; flex-shrink:0;}
-
-  @media (max-width: 480px){
-    .matchup{
-      flex-wrap:wrap; white-space:normal; overflow-x:visible;
-      font-size:1rem;
-    }
-    .at{margin:0 0.1rem;}
-  }
-
-  .subline{
-    color:var(--dim); font-size:0.75rem; display:flex; gap:1rem; flex-wrap:wrap;
-    justify-content:center; margin-bottom:0.9rem;
-  }
-
-  table.odds{
-    width:100%; border-collapse:collapse; font-size:0.78rem;
-  }
-  table.odds th{
-    text-align:right; color:var(--dim); font-weight:500;
-    font-size:0.66rem; text-transform:uppercase; letter-spacing:0.05em;
-    padding-bottom:0.35rem;
-  }
-  table.odds th:first-child, table.odds td:first-child{text-align:left;}
-  table.odds td{
-    text-align:right; padding:0.3rem 0; border-top:1px solid var(--line);
-  }
-  .book{
-    font-family:'Oswald',sans-serif; font-weight:600; font-size:0.72rem;
-  }
-  .book.dk{color:var(--dk-green);}
-  .book.fd{color:var(--fd-blue);}
-  .num.neg{color:var(--loss-red);}
-  .num-am{display:block; font-size:0.7rem; margin-top:0.1rem;}
-  .empty-cell{color:#3d454d;}
-
-  .no-odds{color:var(--dim); font-size:0.75rem; padding:0.4rem 0;}
-
-  .team-score{
-    font-family:'Oswald',sans-serif; font-weight:700;
-  }
-  .team-score.live{color:#ff5f56;}
-  .team-score.final{color:#3ecf6a;}
-  .score-status-line{
-    flex-basis:100%; font-family:'Oswald',sans-serif; font-size:0.68rem;
-    font-weight:600; letter-spacing:0.02em; color:#ff5f56; display:flex;
-    align-items:center; gap:0.35rem;
-  }
-  .live-dot{
-    width:0.5rem; height:0.5rem; border-radius:50%; background:#ff5f56;
-    display:inline-block; animation:live-pulse 1.4s ease-in-out infinite;
-  }
-  @keyframes live-pulse{
-    0%,100%{opacity:1;} 50%{opacity:0.35;}
-  }
-
-  .gemini-toggle{
-    width:100%; margin-top:0.6rem;
-    display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; row-gap:0.3rem;
-    font-family:'Oswald',sans-serif; font-weight:600; font-size:0.7rem;
-    color:var(--dim); background:#161b20; border:1px solid var(--line);
-    border-radius:6px; padding:0.45rem 0.6rem; cursor:pointer;
-    text-align:left; transition:all 0.12s ease;
-  }
-  .gemini-toggle:hover{border-color:#8b5cf6; color:var(--chalk);}
-  .gemini-toggle.open{border-color:#8b5cf6; color:#c4b5fd; background:rgba(139,92,246,0.1);}
-  .gemini-toggle-icon{font-size:0.85rem; flex-shrink:0;}
-  .gemini-toggle-main{
-    display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;
-    flex:1; min-width:0;
-  }
-  .gemini-toggle-winner,
-  .gemini-toggle-ats{
-    display:flex; flex-direction:column; align-items:flex-end; line-height:1.25;
-    text-transform:none; letter-spacing:normal;
-  }
-  .gemini-pick-label{
-    color:var(--chalk); font-weight:500; font-size:.75rem; letter-spacing:0.03em;
-  }
-  .gemini-pick-team{
-    color:var(--chalk); font-weight:600; font-size:.75rem; letter-spacing:0.02em;
-  }
-  .gemini-toggle-trailing{
-    display:flex; align-items:center; gap:0.4rem; margin-left:auto; flex-shrink:0;
-  }
-  /* Tiles view: always drop the Pick/ATS summary to its own line under the
-     "Gemini Prediction Summary" label instead of only wrapping when it
-     doesn't fit on the first line. Row view lays this button out
-     differently (see body.row-view rules below), so this is scoped off. */
-  body:not(.row-view) .gemini-toggle-trailing{
-    flex-basis:100%; margin-left:0; justify-content:space-between;
-  }
-  .gemini-conf{color:#a78bfa; font-family:'JetBrains Mono',monospace; font-weight:700; text-transform:none;}
-  .gemini-caret{font-size:0.6rem; transition:transform .12s ease; color:inherit;}
-  .gemini-toggle.open .gemini-caret{transform:rotate(180deg);}
-  .gemini-panel{
-    margin-top:0.5rem; padding:0.7rem 0.8rem;
-    background:#14101c; border:1px solid rgba(139,92,246,0.3); border-radius:8px;
-  }
-  .gemini-panel-row{
-    display:flex; justify-content:space-between; gap:0.75rem;
-    font-size:0.75rem; padding:0.15rem 0; color:var(--dim);
-  }
-  .gemini-panel-row .gemini-value{color:var(--chalk); font-weight:600; text-align:right;}
-  .gemini-analysis{
-    margin:0.55rem 0 0; color:var(--chalk); font-size:0.78rem; line-height:1.55;
-  }
-  .gemini-picks-summary {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 28px;              /* separation — bump up or down to taste */
-    flex-wrap: wrap;
-  }
-  body.row-view .gemini-toggle,
-  body.row-view .gemini-panel{grid-column:1 / -1;}
-  body.row-view .gemini-toggle{grid-row:3;}
-  body.row-view .gemini-panel{grid-row:4;}
-
-  footer{
-    max-width:1180px; margin:3rem auto 0; padding:0 1.5rem;
-    color:var(--dim); font-size:0.75rem; border-top:1px solid var(--line); padding-top:1rem;
-  }
-  .status{max-width:1180px;margin:2rem auto;padding:0 1.5rem;color:var(--dim);}
 
   .nav-bar{
     position:sticky; top:0; z-index:100;
@@ -342,7 +45,7 @@
   }
   .site-nav{
     max-width:1180px; margin:0 auto; padding:0.9rem 1.5rem;
-    display:flex; flex-wrap:wrap; gap:.5em; align-items:center;
+    display:flex; flex-wrap:wrap; gap:.5rem; align-items:center;
     position:relative;
   }
   .hamburger-btn{
@@ -563,6 +266,298 @@
     body.row-view .no-odds,
     body.row-view .pick-toolbar{width:auto; grid-column:auto; grid-row:auto;}
   }
+
+  .hero{
+    padding:2.5rem 1.5rem 1.75rem;
+    border-bottom:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(120deg, rgba(47,95,143,0.18), transparent 55%);
+    pointer-events:none;
+  }
+  .hero-inner{max-width:1180px;margin:0 auto;position:relative;}
+  .eyebrow{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.22em;
+    font-size:0.72rem;
+    color:var(--turf-bright);
+    font-weight:600;
+  }
+  h1{
+    font-family:'Oswald',sans-serif;
+    font-weight:700;
+    font-size:clamp(2rem, 5vw, 3.1rem);
+    margin:0.35rem 0 0.5rem;
+    letter-spacing:-0.01em;
+  }
+  .meta-row{
+    display:flex; flex-wrap:wrap; gap:1.25rem;
+    color:var(--dim); font-size:0.82rem; margin-top:0.5rem;
+  }
+  .meta-row b{color:var(--chalk); font-weight:600;}
+
+  main{max-width:1180px;margin:0 auto; padding:0 1.5rem;}
+
+  .day-block{margin-top:2.5rem;}
+  .day-heading{
+    display:flex; align-items:baseline; gap:0.75rem;
+    padding-bottom:0.6rem; margin-bottom:1.1rem;
+    border-bottom:2px solid var(--turf);
+  }
+  .day-heading .weekday{
+    font-family:'Oswald',sans-serif; font-weight:700; font-size:1.5rem;
+    text-transform:uppercase; letter-spacing:0.02em;
+  }
+  .day-heading .date{color:var(--dim); font-size:0.85rem;}
+  .day-heading .count{
+    margin-left:auto; color:var(--dim); font-size:0.78rem;
+  }
+
+  .slot-block{margin-bottom:1.75rem;}
+  .slot-block:last-child{margin-bottom:0;}
+  .slot-heading{
+    display:flex; align-items:baseline; gap:0.6rem; flex-wrap:wrap;
+    margin-bottom:0.7rem;
+  }
+  .slot-heading .slot-name{
+    font-family:'Oswald',sans-serif; font-weight:600; font-size:0.95rem;
+    text-transform:uppercase; letter-spacing:0.08em; color:var(--turf-bright);
+  }
+  .slot-heading .slot-icon{font-size:0.9rem;}
+  .slot-heading::after{
+    content:""; flex:1; height:1px; background:var(--line);
+  }
+  .slot-heading .slot-count{color:var(--dim); font-size:0.72rem;}
+  .slot-heading a.slot-regional-link{
+    font-size:0.72rem; color:var(--turf-bright); text-decoration:none;
+    white-space:nowrap;
+  }
+  .slot-heading a.slot-regional-link:hover{text-decoration:underline;}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(340px, 1fr));
+    gap:1rem;
+  }
+
+  .card{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:1.1rem 1.2rem 1.2rem;
+    position:relative;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .card:hover{border-color:#39424b; transform:translateY(-1px);}
+  .card.close-game{border-color:rgba(224,166,60,0.55); box-shadow:0 0 0 1px rgba(224,166,60,0.12), 0 8px 24px -12px rgba(224,166,60,0.25);}
+  .card.slot-pick{
+    border:2px solid var(--pick-yellow);
+    box-shadow:0 0 0 1px rgba(255,214,10,0.25), 0 10px 26px -12px rgba(255,214,10,0.4);
+    padding-top:2.4rem;
+  }
+  .pick-banner{
+    position:absolute; top:0; left:0; right:0;
+    background:var(--pick-yellow); color:#1a1400;
+    font-family:'Oswald',sans-serif; font-weight:700; font-size:0.7rem;
+    text-transform:uppercase; letter-spacing:0.1em; text-align:center;
+    padding:0.3rem 0.5rem; border-radius:9px 9px 0 0;
+  }
+  .odds td.picked{background:rgba(255,214,10,0.16); color:var(--pick-yellow); font-weight:700; border-radius:4px;}
+  .odds td.hit{background:rgba(62,207,106,0.18); color:#3ecf6a; font-weight:700; border-radius:4px;}
+  .odds td.miss{background:rgba(226,88,74,0.16); color:var(--loss-red); font-weight:700; border-radius:4px;}
+  .odds td.picked.hit,
+  .odds td.picked.miss{box-shadow:inset 0 0 0 2px var(--pick-yellow);}
+  .pick-toolbar{display:grid; grid-template-columns:repeat(4,1fr); gap:0.35rem; margin-top:0.6rem;}
+  .payout-summary{
+    grid-column: 1 / -1;
+    font-family:'JetBrains Mono',monospace; font-size:0.7rem; font-weight:700; color:#ffffff;
+    text-align:center; margin-top:0.25rem;
+  }
+  .pick-btn{
+    font-family:'Inter',sans-serif; font-size:0.68rem; font-weight:600;
+    color:var(--dim); background:#161b20; border:1px solid var(--line);
+    border-radius:6px; padding:0.4rem 0.2rem; cursor:pointer;
+    text-align:center; line-height:1.15; transition:all 0.12s ease;
+  }
+  .pick-btn:hover{border-color:var(--pick-yellow); color:var(--chalk);}
+  .pick-btn.active{background:var(--pick-yellow); border-color:var(--pick-yellow); color:#1a1400;}
+  .pick-btn:disabled{opacity:0.55; cursor:not-allowed;}
+  .pick-btn:disabled:hover{border-color:var(--line); color:var(--dim);}
+  .pick-btn.active:disabled{color:#1a1400;}
+  .pick-btn.active:disabled:hover{border-color:var(--pick-yellow);}
+
+  .card-top{display:flex; justify-content:space-between; align-items:flex-start; gap:0.75rem;}
+  .score-badge{
+    font-family:'Oswald',sans-serif; font-weight:600; font-size:0.68rem;
+    text-transform:uppercase; letter-spacing:0.08em; color:var(--turf-bright);
+    border:1px solid rgba(67,148,193,0.35); border-radius:999px;
+    padding:0.2rem 0.55rem; white-space:nowrap;
+  }
+  .close-game .score-badge{color:var(--gold); border-color:rgba(224,166,60,0.45);}
+  .channel-pill{
+    font-family:'Oswald',sans-serif; font-weight:600; font-size:0.7rem;
+    background:var(--turf); color:#04140a; border-radius:5px;
+    padding:0.2rem 0.5rem; letter-spacing:0.02em;
+    /* Capped to roughly the width of the Matchup badge ("Matchup: XX")
+       and wraps instead of overflowing, so a long combined national-TV
+       string (e.g. multiple networks) doesn't blow out the card width or
+       push the score badge off to one side. */
+    max-width: 35ch; white-space: normal; overflow-wrap: break-word;
+    text-align: left; line-height: 1.3;
+  }
+
+  .matchup{
+    margin:0.85rem 0 0.6rem;
+    display:flex; align-items:center; justify-content:center; flex-wrap:nowrap; gap:0.45rem;
+    font-family:'Oswald',sans-serif; font-size:1.05rem; font-weight:600;
+    white-space:nowrap; overflow-x:auto; scrollbar-width:none;
+  }
+  .matchup::-webkit-scrollbar{display:none;}
+  .team{display:inline-flex; align-items:center; gap:0.4rem;}
+  .team-name-wrap{display:inline-flex; flex-direction:column; align-items:flex-start; line-height:1.2;}
+  .team-name-line{display:inline-flex; align-items:baseline; gap:0.4rem;}
+  .team-name{font-size:0.98rem;}
+  .team-record{
+    /* Oswald (condensed sans) instead of the monospace font used
+       elsewhere -- monospace reads noticeably "spread out" at this size
+       for a W-L record + pitcher line, condensed reads more compact. */
+    font-family:'Oswald',sans-serif; font-weight:500; font-size:0.68rem;
+    letter-spacing:0.01em; color:var(--dim);
+  }
+  .team-pitcher{
+    font-family:'Oswald',sans-serif; font-weight:500; font-size:0.76rem;
+    letter-spacing:0.01em; color:var(--dim); opacity:0.85;
+  }
+  .at{color:var(--dim); font-size:0.72rem; font-family:'JetBrains Mono',monospace; flex-shrink:0;}
+
+  @media (max-width: 480px){
+    .matchup{
+      flex-wrap:wrap; white-space:normal; overflow-x:visible;
+      font-size:1rem;
+    }
+    .at{margin:0 0.1rem;}
+  }
+
+  .subline{
+    color:var(--dim); font-size:0.75rem; display:flex; gap:1rem; flex-wrap:wrap;
+    justify-content:center; margin-bottom:0.9rem;
+  }
+
+  table.odds{
+    width:100%; border-collapse:collapse; font-size:0.78rem;
+  }
+  table.odds th{
+    text-align:right; color:var(--dim); font-weight:500;
+    font-size:0.66rem; text-transform:uppercase; letter-spacing:0.05em;
+    padding-bottom:0.35rem;
+  }
+  table.odds th:first-child, table.odds td:first-child{text-align:left;}
+  table.odds td{
+    text-align:right; padding:0.3rem 0; border-top:1px solid var(--line);
+  }
+  .book{
+    font-family:'Oswald',sans-serif; font-weight:600; font-size:0.72rem;
+  }
+  .book.dk{color:var(--dk-green);}
+  .book.fd{color:var(--fd-blue);}
+  .num.neg{color:var(--loss-red);}
+  .num-am{display:block; font-size:0.7rem; margin-top:0.1rem;}
+  .empty-cell{color:#3d454d;}
+
+  .no-odds{color:var(--dim); font-size:0.75rem; padding:0.4rem 0;}
+
+  .team-score{
+    font-family:'Oswald',sans-serif; font-weight:700;
+  }
+  .team-score.live{color:#ff5f56;}
+  .team-score.final{color:#3ecf6a;}
+  .score-status-line{
+    flex-basis:100%; font-family:'Oswald',sans-serif; font-size:0.68rem;
+    font-weight:600; letter-spacing:0.02em; color:#ff5f56; display:flex;
+    align-items:center; gap:0.35rem;
+  }
+  .live-dot{
+    width:0.5rem; height:0.5rem; border-radius:50%; background:#ff5f56;
+    display:inline-block; animation:live-pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes live-pulse{
+    0%,100%{opacity:1;} 50%{opacity:0.35;}
+  }
+
+  .gemini-toggle{
+    width:100%; margin-top:0.6rem;
+    display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; row-gap:0.3rem;
+    font-family:'Oswald',sans-serif; font-weight:600; font-size:0.7rem;
+    color:var(--dim); background:#161b20; border:1px solid var(--line);
+    border-radius:6px; padding:0.45rem 0.6rem; cursor:pointer;
+    text-align:left; transition:all 0.12s ease;
+  }
+  .gemini-toggle:hover{border-color:#8b5cf6; color:var(--chalk);}
+  .gemini-toggle.open{border-color:#8b5cf6; color:#c4b5fd; background:rgba(139,92,246,0.1);}
+  .gemini-toggle-icon{font-size:0.85rem; flex-shrink:0;}
+  .gemini-toggle-main{
+    display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;
+    flex:1; min-width:0;
+  }
+  .gemini-toggle-winner,
+  .gemini-toggle-ats{
+    display:flex; flex-direction:column; align-items:flex-end; line-height:1.25;
+    text-transform:none; letter-spacing:normal;
+  }
+  .gemini-pick-label{
+    color:var(--chalk); font-weight:500; font-size:.75rem; letter-spacing:0.03em;
+  }
+  .gemini-pick-team{
+    color:var(--chalk); font-weight:600; font-size:.75rem; letter-spacing:0.02em;
+  }
+  .gemini-toggle-trailing{
+    display:flex; align-items:center; gap:0.4rem; margin-left:auto; flex-shrink:0;
+  }
+  /* Tiles view: always drop the Pick/ATS summary to its own line under the
+     "Gemini Prediction Summary" label instead of only wrapping when it
+     doesn't fit on the first line. Row view lays this button out
+     differently (see body.row-view rules below), so this is scoped off. */
+  body:not(.row-view) .gemini-toggle-trailing{
+    flex-basis:100%; margin-left:0; justify-content:space-between;
+  }
+  .gemini-conf{color:#a78bfa; font-family:'JetBrains Mono',monospace; font-weight:700; text-transform:none;}
+  .gemini-caret{font-size:0.6rem; transition:transform .12s ease; color:inherit;}
+  .gemini-toggle.open .gemini-caret{transform:rotate(180deg);}
+  .gemini-panel{
+    margin-top:0.5rem; padding:0.7rem 0.8rem;
+    background:#14101c; border:1px solid rgba(139,92,246,0.3); border-radius:8px;
+  }
+  .gemini-panel-row{
+    display:flex; justify-content:space-between; gap:0.75rem;
+    font-size:0.75rem; padding:0.15rem 0; color:var(--dim);
+  }
+  .gemini-panel-row .gemini-value{color:var(--chalk); font-weight:600; text-align:right;}
+  .gemini-analysis{
+    margin:0.55rem 0 0; color:var(--chalk); font-size:0.78rem; line-height:1.55;
+  }
+  .gemini-picks-summary {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 28px;              /* separation — bump up or down to taste */
+    flex-wrap: wrap;
+  }
+  body.row-view .gemini-toggle,
+  body.row-view .gemini-panel{grid-column:1 / -1;}
+  body.row-view .gemini-toggle{grid-row:3;}
+  body.row-view .gemini-panel{grid-row:4;}
+
+  footer{
+    max-width:1180px; margin:3rem auto 0; padding:0 1.5rem;
+    color:var(--dim); font-size:0.75rem; border-top:1px solid var(--line); padding-top:1rem;
+  }
+  footer a{color:var(--turf-bright);}
+  .status{max-width:1180px;margin:2rem auto;padding:0 1.5rem;color:var(--dim);}
 </style>
 </head>
 <body>
@@ -571,9 +566,9 @@
 <nav class="site-nav">
   <button type="button" class="hamburger-btn" id="hamburgerBtn" aria-label="Menu" aria-expanded="false">&#9776;</button>
   <div class="nav-links" id="navLinks">
-    <a href="index.html" class="active">NCAAF</a>
+    <a href="index.html">NCAAF</a>
     <a href="ncaamb.html">NCAAMB</a>
-    <a href="nfl.html">NFL</a>
+    <a href="nfl.html" class="active">NFL</a>
     <a href="mlb.html">MLB</a>
     <a href="accuracy.html">Accuracy</a>
     <a href="picks.html">Picks</a>
@@ -628,13 +623,12 @@
 
 <div class="hero">
   <div class="hero-inner">
-    <div class="eyebrow">College Football &middot; TV Schedule + Odds Board</div>
+    <div class="eyebrow">NFL &middot; TV Schedule + Odds Board</div>
     <h1 id="pageTitle">Loading week&hellip;</h1>
     <div class="meta-row">
       <span>Last updated: <b id="generatedAt">—</b></span>
-      <span><b id="totalGames">—</b> games on main channels</span>
+      <span><b id="totalGames">—</b> games with a broadcast assigned</span>
     </div>
-    <div class="channels" id="channelList"></div>
   </div>
 </div>
 
@@ -643,9 +637,12 @@
 <div class="status" id="statusMsg" style="display:none;"></div>
 
 <footer>
-  Matchup: N badge = this game's rank among every game this week (1 = most marquee), based on a blend of 50% combined AP Top 25 rank (unranked teams count as 50) + 25% combined win rank (teams ranked by this season's record like an AP-style poll, best record = rank 1) + 25% posted spread -- each normalized 0-100 across the week before blending.
-  &#11088; Time Slot Best Matchup = 50% combined AP rank (unranked teams count as 50) + 50% closest posted spread, blended within that time window. Nebraska overrides everything whenever it's playing in that window.
-  Odds via DraftKings &amp; FanDuel through SharpAPI. Schedule &amp; rankings via CollegeFootballData.com.
+  Matchup: N badge = this game's rank among every game this week (1 = most marquee), based on 50% DraftKings/FanDuel point spread + 50% combined win rank (teams ranked by this
+  week's record like an AP-style poll, best record = rank 1) -- both normalized 0-100 and blended before ranking.
+  &#11088; Time Slot Best Matchup = the Chiefs' or Broncos' game if either is playing in that window, otherwise the game
+  with the best blended matchup score. Odds via DraftKings &amp; FanDuel through SharpAPI. Schedule, broadcast
+  network, &amp; records via ESPN's public scoreboard API.
+  <br><br>
   &#10024; Gemini Prediction Summary is AI-generated from current-season stats and posted odds -- informational only, not betting advice.
   <br><br>
   &#11088; Best Matchup Only shows just each window's starred pick. Conf filters to games where Gemini's confidence
@@ -664,9 +661,10 @@
 })();
 </script>
 <script>
-const SPORT = 'cfb';
-const DATA_URL = 'data/ncaaf_dashboard.json';
+const SPORT = 'nfl';
+const DATA_URL = 'data/nfl_dashboard.json';
 let SCORES = {};
+let CURRENT_SEASON = null;
 
 function fmtAmerican(n) {
   if (n === null || n === undefined || n === '') return null;
@@ -695,10 +693,6 @@ function oddsCell(entry) {
   return '<span class="empty-cell">—</span>';
 }
 
-function rankBadge(rank) {
-  return rank ? `<span class="rank">#${rank}</span> ` : '';
-}
-
 function teamNameBlock(name, record, scoreBadge) {
   const recordHtml = record ? `<span class="team-record">${record}</span>` : '';
   return `<span class="team-name-wrap"><span class="team-name-line"><span class="team-name">${name}</span>${scoreBadge || ''}</span>${recordHtml}</span>`;
@@ -713,7 +707,11 @@ function kickoffTime(iso, tbd) {
 }
 
 function renderGame(g) {
-  const marquee = g.home_rank && g.away_rank;
+  // matchup_score is now a blended 0-100 score (50% spread + 50% win rank,
+  // both normalized) rather than a raw spread number, so the old "<=3
+  // points" threshold no longer applies -- treat the bottom ~1/5th of the
+  // 0-100 scale as a "close/marquee" game instead. Adjust to taste.
+  const closeGame = g.matchup_score !== null && g.matchup_score !== undefined && g.matchup_score <= 20;
   const isPick = !!g.is_slot_pick;
   const gScore = SCORES[String(g.id)];
   const books = ['draftkings', 'fanduel'];
@@ -748,16 +746,16 @@ function renderGame(g) {
     : `<div class="no-odds">Odds not yet posted</div>`;
 
   return `
-  <div class="card ${marquee ? 'marquee' : ''} ${isPick ? 'slot-pick' : ''}">
+  <div class="card ${closeGame ? 'close-game' : ''} ${isPick ? 'slot-pick' : ''}">
     ${isPick ? '<div class="pick-banner">\u2b50 Time Slot Best Matchup</div>' : ''}
     <div class="card-top">
       <span class="score-badge">${matchupLabel(g)}</span>
       <span class="channel-pill">${formatChannelForPill(g.channel)}</span>
     </div>
     <div class="matchup">
-      <span class="team">${rankBadge(g.away_rank)}${teamNameBlock(g.away_team, g.away_record, teamScoreBadge(gScore?.away_score, gScore?.status))}</span>
+      <span class="team">${teamNameBlock(g.away_team, g.away_record, teamScoreBadge(gScore?.away_score, gScore?.status))}</span>
       <span class="at">@</span>
-      <span class="team">${rankBadge(g.home_rank)}${teamNameBlock(g.home_team, g.home_record, teamScoreBadge(gScore?.home_score, gScore?.status))}</span>
+      <span class="team">${teamNameBlock(g.home_team, g.home_record, teamScoreBadge(gScore?.home_score, gScore?.status))}</span>
     </div>
     <div class="subline">
       <span>${kickoffTime(g.start_time, g.start_time_tbd)}</span>
@@ -779,13 +777,26 @@ const SLOT_ICON = {
   'Time TBD': '\u2753'
 };
 
-function renderSlot(slot) {
+// Only Noon and Afternoon windows are ambiguous enough (multiple games,
+// different regional broadcasts) for 506sports.com's coverage map to be
+// worth linking -- Morning/Prime Time/Late Night are single-game windows
+// nationally, so there's nothing regional to look up.
+const REGIONAL_MAP_SLOTS = new Set(['Noon', 'Afternoon']);
+
+function regionalMapLink(weekNum) {
+  if (!CURRENT_SEASON || !weekNum) return '';
+  const url = `https://506sports.com/nfl.php?yr=${CURRENT_SEASON}&wk=${weekNum}`;
+  return ` <a class="slot-regional-link" href="${url}" target="_blank" rel="noopener">\u{1F5FA}\uFE0F Click for Regional Coverage Map</a>`;
+}
+
+function renderSlot(slot, weekNum) {
   return `
   <div class="slot-block">
     <div class="slot-heading">
       <span class="slot-icon">${SLOT_ICON[slot.slot] || ''}</span>
       <span class="slot-name">${slot.slot}</span>
       <span class="slot-count">${slot.games.length} game${slot.games.length === 1 ? '' : 's'}</span>
+      ${REGIONAL_MAP_SLOTS.has(slot.slot) ? regionalMapLink(weekNum) : ''}
     </div>
     <div class="grid">
       ${slot.games.map(renderGame).join('')}
@@ -793,7 +804,7 @@ function renderSlot(slot) {
   </div>`;
 }
 
-function renderDay(day) {
+function renderDay(day, weekNum) {
   const d = new Date(day.date + 'T00:00:00');
   const dateStr = d.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
   return `
@@ -803,26 +814,32 @@ function renderDay(day) {
       <span class="date">${dateStr}</span>
       <span class="count">${day.game_count} game${day.game_count === 1 ? '' : 's'}</span>
     </div>
-    ${day.time_slots.map(renderSlot).join('')}
+    ${day.time_slots.map(slot => renderSlot(slot, weekNum)).join('')}
   </section>`;
 }
 
-function renderWeek(week) {
+function renderWeek(week, seasonType) {
+  const label = formatWeekLabel(week.week, seasonType);
+  // 506sports.com's coverage map only tracks the real regular-season
+  // broadcast map -- preseason windows aren't worth linking, so only pass
+  // a week number through when this is a regular-season week (regionalMapLink
+  // already no-ops on a falsy week number).
+  const regionalWeekNum = seasonType === 2 ? week.week : null;
   if (!week.days.length) {
     if (!week._filtered) return ''; // nothing scheduled this week at all -- don't show an empty section
     return `
     <section class="week-block">
-      <div class="week-heading"><span class="week-name">Week ${week.week}</span></div>
+      <div class="week-heading"><span class="week-name">${label}</span></div>
       <div class="week-empty">No games match the current filters.</div>
     </section>`;
   }
   return `
   <section class="week-block">
     <div class="week-heading">
-      <span class="week-name">Week ${week.week}</span>
+      <span class="week-name">${label}</span>
       <span class="week-count">${week.total_games} game${week.total_games === 1 ? '' : 's'}</span>
     </div>
-    ${week.days.map(renderDay).join('')}
+    ${week.days.map(day => renderDay(day, regionalWeekNum)).join('')}
   </section>`;
 }
 
@@ -832,24 +849,23 @@ async function init() {
     const res = await fetch(DATA_URL, { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    SCORES = await fetchScores('cfb');
+    SCORES = await fetchScores('nfl');
+    CURRENT_SEASON = data.season;
 
-    // dashboard.json now holds every week ever built; only show the week
-    // the build itself resolved as current, plus the next one.
+    // nfl_dashboard.json now holds every week ever built; only show the
+    // week the build itself resolved as current, plus the next one.
     const displayWeeks = selectDisplayWeeks(data.weeks, data.current_week);
 
-    const weekNums = displayWeeks.map(w => w.week);
-    document.getElementById('pageTitle').textContent = weekNums.length
-      ? (weekNums.length > 1 ? `Weeks ${weekNums[0]}\u2013${weekNums[weekNums.length - 1]} \u2014 ${data.season}` : `Week ${weekNums[0]} \u2014 ${data.season}`)
+    const weekLabels = displayWeeks.map(w => formatWeekLabel(w.week, data.season_type));
+    document.getElementById('pageTitle').textContent = weekLabels.length
+      ? (weekLabels.length > 1 ? `${weekLabels[0]} \u2013 ${weekLabels[weekLabels.length - 1]} \u2014 ${data.season}` : `${weekLabels[0]} \u2014 ${data.season}`)
       : `${data.season}`;
     document.getElementById('generatedAt').textContent = new Date(data.generated_at).toLocaleString();
-    document.getElementById('channelList').innerHTML =
-      data.main_channels.map(c => `<span class="chan-pill">${c}</span>`).join('');
 
     const daysEl = document.getElementById('days');
     if (!displayWeeks.some(w => w.days.length)) {
       statusEl.style.display = 'block';
-      statusEl.textContent = 'No main-channel games found for either week yet — check back closer to kickoff.';
+      statusEl.textContent = 'No games found for either week yet — check back closer to kickoff.';
       return;
     }
     let statusPills;
@@ -858,16 +874,16 @@ async function init() {
       updateStatusPillCounts(filteredWeeks, SCORES);
       const shownWeeks = applyStatusFilterToWeeks(filteredWeeks, statusPills.get(), SCORES);
       document.getElementById('totalGames').textContent = shownWeeks.reduce((n, w) => n + w.total_games, 0);
-      daysEl.innerHTML = shownWeeks.map(renderWeek).join('');
+      daysEl.innerHTML = shownWeeks.map(w => renderWeek(w, data.season_type)).join('');
     };
-    statusPills = initStatusPills('cfb', 'all', renderBoard);
+    statusPills = initStatusPills('nfl', 'all', renderBoard);
     renderBoard();
     attachPickHandlers(daysEl, renderBoard);
     attachGeminiHandlers(daysEl);
     initFilterBar(renderBoard);
   } catch (err) {
     statusEl.style.display = 'block';
-    statusEl.textContent = `Couldn't load data/ncaaf_dashboard.json (${err.message}). Run scripts/build_ncaaf_dashboard.py first.`;
+    statusEl.textContent = `Couldn't load data/nfl_dashboard.json (${err.message}). Run scripts/build_nfl_dashboard.py first.`;
   }
 }
 
