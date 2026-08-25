@@ -66,7 +66,7 @@
         <div class="project-card">
           <div class="github-iframe-wrapper">
             <div class="loading-bar"></div>
-            <iframe class="github-iframe" src="${liveUrl}" title="${escapeHTML(repo.name)} live site" loading="lazy" scrolling="no"></iframe>
+            <iframe class="github-iframe" data-src="${liveUrl}" title="${escapeHTML(repo.name)} live site" scrolling="no"></iframe>
           </div>
           <h2>${escapeHTML(repo.name)}</h2>
           <p class="repo-updated">Last updated: ${formatDate(repo.pushed_at)}</p>
@@ -80,18 +80,36 @@
       gridEl.appendChild(column);
 
       // Drive the loading bar + fade-in for this card's iframe,
-      // same behavior as the #myFrame logic in components.js
+      // same behavior as the #myFrame logic in components.js.
+      // The iframe's src is only set once it's actually scrolled into
+      // view, so it behaves the same on desktop as it does on Safari/mobile
+      // instead of relying on the browser's native loading="lazy" heuristics.
       const iframeEl = column.querySelector('.github-iframe');
       const barEl = column.querySelector('.loading-bar');
 
-      setTimeout(() => { barEl.style.width = '30%'; }, 100);
-      setTimeout(() => { barEl.style.width = '70%'; }, 1000);
+      const startLoad = () => {
+        setTimeout(() => { barEl.style.width = '30%'; }, 100);
+        setTimeout(() => { barEl.style.width = '70%'; }, 1000);
 
-      iframeEl.onload = () => {
-        barEl.style.width = '100%';
-        iframeEl.style.opacity = '1';
-        setTimeout(() => { barEl.classList.add('fade-out'); }, 300);
+        iframeEl.onload = () => {
+          barEl.style.width = '100%';
+          iframeEl.style.opacity = '1';
+          setTimeout(() => { barEl.classList.add('fade-out'); }, 300);
+        };
+
+        iframeEl.src = iframeEl.dataset.src;
       };
+
+      const lazyLoadObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            startLoad();
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '200px 0px', threshold: 0.01 });
+
+      lazyLoadObserver.observe(iframeEl);
     });
 
     // Re-trigger the existing fade-in observer used across the site
