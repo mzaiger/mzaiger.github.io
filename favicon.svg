@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <rect width="64" height="64" rx="10" fill="#000000"/>
+  <path fill="#AAAAAA" d="M8 14.5h4v5h-4zM12 14.5h4v5h-4zM16 14.5h4v5h-4zM4 19.5h4v5h-4zM20 19.5h4v5h-4zM4 24.5h4v5h-4zM4 29.5h4v5h-4zM4 34.5h4v5h-4zM4 39.5h4v5h-4zM20 39.5h4v5h-4zM8 44.5h4v5h-4zM12 44.5h4v5h-4zM16 44.5h4v5h-4zM28 19.5h4v5h-4zM32 19.5h4v5h-4zM28 24.5h4v5h-4zM32 24.5h4v5h-4zM28 34.5h4v5h-4zM32 34.5h4v5h-4zM28 39.5h4v5h-4zM32 39.5h4v5h-4zM40 14.5h4v5h-4zM40 19.5h4v5h-4zM44 24.5h4v5h-4zM48 29.5h4v5h-4zM52 34.5h4v5h-4zM56 39.5h4v5h-4zM56 44.5h4v5h-4z"/>
+</svg>
