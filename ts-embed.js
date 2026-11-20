@@ -12,16 +12,28 @@ const de=document.documentElement,post=m=>{try{parent.postMessage(Object.assign(
 de.classList.add('ts-embedded');
 post({type:'hello'});
 
+// position:sticky only works inside the thing that scrolls. Here the frame doesn't scroll (Trendslope's page does), so sticky bars
+// (like the filters) are held in place by hand: nudged down by exactly as much as the page has scrolled past them.
+let vt=0;const stk=new Set();let scanT=0;
+const scan=()=>{scanT=0;stk.clear();for(const el of document.body?document.body.querySelectorAll('*'):[]){try{if(getComputedStyle(el).position==='sticky')stk.add(el)}catch{}}applySticky()};
+const schedScan=()=>{if(!scanT)scanT=setTimeout(scan,400)};
+const applySticky=()=>{for(const el of stk){if(!el.isConnected){stk.delete(el);continue}
+ const cs=getComputedStyle(el),T=parseFloat(cs.top)||0,prev=el._tsY||0,r=el.getBoundingClientRect(),natural=r.top+(window.scrollY||0)-prev;
+ let y=Math.max(natural,vt+T);const par=el.parentElement;
+ if(par){const pr=par.getBoundingClientRect(),pcs=getComputedStyle(par),lim=pr.bottom+(window.scrollY||0)-(parseFloat(pcs.paddingBottom)||0)-(parseFloat(pcs.borderBottomWidth)||0)-r.height-(parseFloat(cs.marginBottom)||0);y=Math.min(y,lim)}
+ y=Math.max(y,natural);const d=Math.round(y-natural);
+ if(d!==prev){el.style.transform=d?'translateY('+d+'px)':'';el._tsY=d}}};
+
 // how tall is the content? (body box, so a taller frame can't keep itself tall)
 let last=0,raf=0;
 const measure=()=>{const b=document.body;if(!b)return 0;const r=b.getBoundingClientRect(),cs=getComputedStyle(b);
  return Math.ceil(r.bottom+(window.scrollY||0)+(parseFloat(cs.marginBottom)||0))};
 const report=()=>{raf=0;const h=measure();if(h>0&&Math.abs(h-last)>=1){last=h;post({type:'height',h})}};
-const sched=()=>{if(!raf)raf=requestAnimationFrame(report)};
+const sched=()=>{if(!raf)raf=requestAnimationFrame(report);schedScan()};
 const start=()=>{
  sched();
  try{const ro=new ResizeObserver(sched);ro.observe(de);ro.observe(document.body)}catch{}
- try{new MutationObserver(sched).observe(document.body,{childList:true,subtree:true,attributes:true})}catch{}
+ try{new MutationObserver(rs=>{if(rs.every(r=>r.type==='attributes'&&r.attributeName==='style'&&r.target._tsY!==undefined))return;sched()}).observe(document.body,{childList:true,subtree:true,attributes:true})}catch{}   // (ignore our own sticky nudges)
  addEventListener('load',sched);addEventListener('resize',sched);
  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(sched);
  setTimeout(sched,300);setTimeout(sched,1500);
@@ -33,6 +45,6 @@ document.readyState==='loading'?addEventListener('DOMContentLoaded',start):start
 addEventListener('message',e=>{
  if(e.origin!==po||e.source!==parent)return;const m=e.data;if(!m||m.tsEmbed!==1)return;
  if(m.type==='pad'){const tg=m.onBody?document.body:de;if(!tg)return;if(tg._tsBase===undefined)tg._tsBase=parseFloat(getComputedStyle(tg).paddingTop)||0;tg.style.paddingTop=(tg._tsBase+(m.px||0))+'px';sched()}   // room for Trendslope's banner, which sits over the top of the frame
- if(m.type==='vp'){de.style.setProperty('--ts-vt',(m.top||0)+'px');de.style.setProperty('--ts-vh',(m.height||0)+'px')}
+ if(m.type==='vp'){vt=m.top||0;de.style.setProperty('--ts-vt',vt+'px');applySticky();de.style.setProperty('--ts-vh',(m.height||0)+'px')}
 });
 })();
