@@ -24,9 +24,14 @@ addEventListener('pageshow',()=>{lastY=-1;post({type:'hello'})});
 // room for Trendslope's banner, which sits over the top of the frame
 addEventListener('message',e=>{
  if(e.origin!==po||e.source!==parent)return;const m=e.data;if(!m||m.tsEmbed!==1)return;
- if(m.type==='pad'){const tg=m.onBody?document.body:de;if(!tg)return;
+ if(m.type==='pad'){
+  if(m.fill&&document.body){   // a flat strip in the site's own background colour instead of padding, so the banner's slanted edge shows exactly that colour (not the page's top glow)
+   let sp=document.getElementById('tsSpacer');if(!sp){sp=document.createElement('div');sp.id='tsSpacer';sp.setAttribute('aria-hidden','true');document.body.insertBefore(sp,document.body.firstChild)}
+   sp.style.cssText='height:'+(m.px||0)+'px;background:'+m.fill+';margin:0;padding:0;border:0;pointer-events:none';
+  }else{
+  const tg=m.onBody?document.body:de;if(!tg)return;
   if(tg._tsBase===undefined)tg._tsBase=parseFloat(getComputedStyle(tg).paddingTop)||0;
-  tg.style.paddingTop=(tg._tsBase+(m.px||0))+'px';
+  tg.style.paddingTop=(tg._tsBase+(m.px||0))+'px';}
   lastY=-1;if(!run){run=1;still=0;requestAnimationFrame(loop)}   // re-send the scroll position after the padding changes
  }
 });
