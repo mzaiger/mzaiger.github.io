@@ -32,6 +32,7 @@ document.readyState==='loading'?addEventListener('DOMContentLoaded',start):start
 //   --ts-vt = px from the top of the page to the top of the visible screen, --ts-vh = visible height in px
 addEventListener('message',e=>{
  if(e.origin!==po||e.source!==parent)return;const m=e.data;if(!m||m.tsEmbed!==1)return;
+ if(m.type==='pad'){const tg=m.onBody?document.body:de;if(!tg)return;if(tg._tsBase===undefined)tg._tsBase=parseFloat(getComputedStyle(tg).paddingTop)||0;tg.style.paddingTop=(tg._tsBase+(m.px||0))+'px';sched()}   // room for Trendslope's banner, which sits over the top of the frame
  if(m.type==='vp'){de.style.setProperty('--ts-vt',(m.top||0)+'px');de.style.setProperty('--ts-vh',(m.height||0)+'px')}
 });
 })();
