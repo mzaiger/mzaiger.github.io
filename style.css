@@ -435,7 +435,7 @@ position: relative; /* Good practice for positioning */
   margin-bottom: 0;
 }
 
-.github-iframe-wrapper {
+.github-iframe-wrapper-side-project {
   width: 101.5%;
   height: 250px;
   overflow: hidden;
