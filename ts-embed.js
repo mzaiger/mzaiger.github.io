@@ -3,7 +3,8 @@
    It does nothing unless the page is opened inside Trendslope. Inside Trendslope it
    1) says hello, so Trendslope knows this site can cooperate,
    2) leaves room at the top of the page for Trendslope's banner (Trendslope sends how much), and
-   3) reports how far the page has scrolled, so the banner can slide away with it.
+   3) reports how far the page has scrolled, so the banner can slide away with it, and
+   4) scrolls the page back to the top when Trendslope's Top button is tapped.
    The page keeps scrolling by itself inside its frame, so its own sticky bars, popups and fixed buttons all keep working normally. */
 (()=>{
 if(window.parent===window)return;
@@ -34,5 +35,6 @@ addEventListener('message',e=>{
   tg.style.paddingTop=(tg._tsBase+(m.px||0))+'px';}
   lastY=-1;if(!run){run=1;still=0;requestAnimationFrame(loop)}   // re-send the scroll position after the padding changes
  }
+ else if(m.type==='top'){try{scrollTo({top:0,behavior:'smooth'})}catch{scrollTo(0,0)}}   // Trendslope's Top button
 });
 })();
