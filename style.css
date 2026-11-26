@@ -21,9 +21,6 @@ html, body {
   --accent-color: #F0F4F9;
   --logo-url: url('logo.png');
   --me-url: url('Me2.png');
-
-  /* Side Projects page: one shared shape for every tile's video / live preview.
-     If your videos aren't 16:9, change this one line. */
   --media-ratio: 16 / 9;
 }
 
@@ -439,18 +436,14 @@ position: relative; /* Good practice for positioning */
   margin-bottom: 0;
 }
 
-/* Side Projects live preview: same shape as the videos (--media-ratio),
-   so its height always matches them at every screen width. */
 .github-iframe-wrapper-side-projects {
   width: 100%;
   aspect-ratio: var(--media-ratio);
   overflow: hidden;
   position: relative;
-  margin-bottom: 20px; /* same gap under the media as .project-video */
+  margin-bottom: 20px;
 }
 
-/* The site is rendered at 2x size and scaled to 0.5 (plus 2% overscan so no
-   edge gaps show), so it always fills the box above. */
 .github-iframe-wrapper-side-projects .github-iframe {
   position: absolute;
   top: 0;
@@ -482,7 +475,6 @@ position: relative; /* Good practice for positioning */
   margin-bottom: 20px; /* Space between video and text */
 }
 
-/* Side Projects tiles: every video gets the same box as the live preview */
 .column-container-project .project-video {
   aspect-ratio: var(--media-ratio);
   object-fit: cover;
@@ -608,14 +600,8 @@ iframe {
 .column-container-project {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two equal columns */
-  grid-auto-rows: 1fr;            /* every tile is as tall as the tallest one */
   gap: 15px;
   margin: 0 auto;
-}
-
-/* Lets each tile stretch to fill its grid cell */
-.column-container-project > .column {
-  display: flex;
 }
 
 .profile {
@@ -825,12 +811,6 @@ body.light-mode .marcitech-card.show:hover {
   transform: scale(0.33);
   transform-origin: top left;
 }
-
-  .github-iframe-wrapper-side-projects .github-iframe {
-    width: 340%;
-    height: 340%;
-    transform: scale(0.3);
-  }
 
   .card
 {
