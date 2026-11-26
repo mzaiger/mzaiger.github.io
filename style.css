@@ -21,7 +21,7 @@ html, body {
   --accent-color: #F0F4F9;
   --logo-url: url('logo.png');
   --me-url: url('Me2.png');
-  --media-ratio: 16 / 9;
+  --media-ratio: 16 / 10;
 }
 
 /* 2. The "Light Mode" overrides */
